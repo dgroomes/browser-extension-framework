@@ -87,10 +87,8 @@ abstract class RpcServer {
      * @param procedure the procedure to execute on the server. It must take zero or one args. The first argument must
      * be the "procedureArgs". The procedure must return a Promise. The Promise should resolve with the return value of
      * interest when the procedure is finished its work.
-     *
-     * Note: I know this is unused... I'll delete it if I find I don't need it.
      */
-    registerPromiseProcedure(procedureName, procedure) {
+    registerPromiseProcedure <T> (procedureName, procedure : (procedureArgs: any) => Promise<T>) {
         this.#promiseProcedures.set(procedureName, procedure)
     }
 
