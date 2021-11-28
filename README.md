@@ -112,6 +112,15 @@ General clean ups, TODOs and things I wish to implement for this project:
 * [x] DONE Add an example web extension
 * [x] DONE re-organize the directory layout. There's no need for a "browser-extension-framework/" directory. Too
       verbose.
+* [ ] Consider publishing to Deno or NPM. Consider publishing the compiled JavaScript.
+* [ ] Runtime check the "externally_accessible" configuration list (I assume that's possible but I wouldn't be surprised if
+      it wasn't) and warn if the current web page is not in the list. (This was the problem I had when I developed the
+      example extension and I was confused). 
+* [ ] Fix the double loading problem. This is all over the place. It double loads the source code when you click the
+      extension browser action. It makes for an unusable experience except in the very narrow happy path.
+* [ ] Consider abstracting away the required content script "thin bootstrap" files. For example, `dcl-content-script.ts`
+      shouldn't have to exist. I thought it did earlier, but it's not needed. It can be replaced with a generic middleware
+      content script. 
 
 ## Reference
 
