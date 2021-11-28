@@ -1,10 +1,10 @@
 # example
 
-This is an example browser extension that uses WebExtensionFramework.
+This is an example browser extension that uses BrowserExtensionFramework.
 
 ## "Detect Code Libraries"
 
-This example browser extension is called *Detect Code Libraries* (DCL). It uses WebExtensionFramework and adds code to
+This example browser extension is called *Detect Code Libraries* (DCL). It uses BrowserExtensionFramework and adds code to
 the web page to detect what JavaScript libraries are loaded. It tries to detect if jQuery, Vue or Lodash is loaded.
 (This is a limited list, but this is just a contrived browser extension example!).
 
@@ -25,11 +25,11 @@ of JavaScript execution environments. Keep in mind these components:
 3) The DCL web page script
     * `dcl-page-script.js`
 
-The programmer must write each of these files. It is not possible for WebExtensionFramework to abstract away
+The programmer must write each of these files. It is not possible for BrowserExtensionFramework to abstract away
 `dcl-content-script.js` or `dcl-page-script.js`. Abstracting away those files would require dynamic JavaScript,
 serializing/deserializing JavaScript code, and using `eval()`, which we are not willing to do.
 
-So, the API of WebExtensionFramework requires the programmer to still write all of these files but offers functions to
+So, the API of BrowserExtensionFramework requires the programmer to still write all of these files but offers functions to
 reduce the boilerplate and handle message passing and lifecycle timing.
 
 ## Instructions

@@ -3,7 +3,7 @@
 // Is this script even needed? Cant' all the work be done in the popup script?
 
 import {initRpcBackground} from "../../rpc-framework/rpc-backend.ts";
-import {chrome} from "../../web-extension-types/chrome-extension-types.d.ts";
+import {chrome} from "../../browser-extension-types/chrome-extension-types.d.ts";
 
 console.debug("[dcl-init.js] Loaded.");
 

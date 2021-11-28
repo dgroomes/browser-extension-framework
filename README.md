@@ -1,6 +1,6 @@
-# web-extension-framework
+# browser-extension-framework
 
-🛠 WebExtensionFramework is an RPC-centric browser extension framework.
+🛠 BrowserExtensionFramework is an RPC-centric browser extension framework.
 
 ---
 **NOTE**: This was developed on macOS and for my own personal use.
@@ -11,7 +11,7 @@
 
 The source code layout:
 
-* `web-extension-types/`
+* `browser-extension-types/`
     * TypeScript type declaration files for browser (vendor) JavaScript APIs. This means there are `.d.ts` files for
       Chromium's `chrome` JavaScript APIs and FireFox's `browser` JavaScript APIs. Yes there is probably an open source
       version of this but I would prefer to minimize third-party dependencies where feasible (Update: I'm happy to depend
@@ -21,14 +21,14 @@ The source code layout:
       code has components that run in all contexts: background scripts, popup scripts, content scripts, and the web
       page.
     * For more information, see [RPC Framework](#rpc-framework)
-* `web-extension-framework/`
-    * The code in this directory implements an RPC-centric web extension framework. It depends on the lower-level
+* `browser-extension-framework/`
+    * The code in this directory implements an RPC-centric browser extension framework. It depends on the lower-level
       `rpc-framework`.
-    * For more information, see [Web Extension Framework](#web-extension-framework)
+    * For more information, see [Browser Extension Framework](#browser-extension-framework)
 
-## Web Extension Framework
+## Browser Extension Framework
 
-WebExtensionFramework is an RPC-centric web extension framework. I originally developed it while working on another
+BrowserExtensionFramework is an RPC-centric web extension framework. I originally developed it while working on another
 project of mine: <https://github.com/dgroomes/stackoverflow-look-back>.
 
 Here are some key points:
@@ -46,7 +46,7 @@ The API is complicated only because the architecture of a web extension can be c
 JavaScript execution environments: background scripts, popup scripts, content scripts and web page scripts. It's
 challenging conceptually to even think about all these environments because we are used to programming in just one
 environment like the web page, or maybe a NodeJS app. Plus, writing a program for this environment requires a lot of
-message passing code, Promises code and logging (for debugging) code. That's where WebExtensionFramework comes in.
+message passing code, Promises code and logging (for debugging) code. That's where BrowserExtensionFramework comes in.
 
 However, the framework cannot abstract away the JavaScript execution environments. The user of the API still needs to
 know how web extensions work and about each of the Java execution environments. In that sense, this API does not offer
@@ -59,9 +59,9 @@ example web extension.
 
 ### RPC Framework
 
-A significant portion of a non-trivial web extension is often dedicated to *Message Passing* between the four components
+A significant portion of a non-trivial browser extension is often dedicated to *Message Passing* between the four components
 of an extension: (1) a background script (2) a popup script (3) a content script (4) the web page. Message passing is a
-fundamental and useful programming feature, but unfortunately in a web extension environment the complexity of the code
+fundamental and useful programming feature, but unfortunately in a browser extension environment the complexity of the code
 for message passing is exacerbated by the number of components (the aforementioned four) and the sometimes stark
 differences in APIs between browsers (Chromium vs Firefox). It's desirable to encapsulate the complexity of message
 passing behind an easy-to-use API that takes a message, does all of the behind the scenes work, and then returns a

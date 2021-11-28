@@ -1,4 +1,4 @@
-import {BackendWiring} from "../../web-extension-framework/backend-wiring.ts";
+import {BackendWiring} from "../../browser-extension-framework/backend-wiring.ts";
 
 console.debug("[dcl-popup-script.js] Initializing...")
 

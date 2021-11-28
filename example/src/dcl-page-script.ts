@@ -1,4 +1,4 @@
-import {PageWiring} from "../../web-extension-framework/page-wiring.ts";
+import {PageWiring} from "../../browser-extension-framework/page-wiring.ts";
 
 console.debug("[dcl-page-script.js] Initializing...");
 const pageWiring = PageWiring.initialize();

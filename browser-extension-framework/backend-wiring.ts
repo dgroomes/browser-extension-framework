@@ -1,10 +1,10 @@
-import {chrome} from "../web-extension-types/chrome-extension-types.d.ts"
+import {chrome} from "../browser-extension-types/chrome-extension-types.d.ts"
 import {RpcClient, RpcServer} from "../rpc-framework/rpc.ts";
 import {getRpcClient, getRpcServer} from "../rpc-framework/rpc-backend.ts";
 export {BackendWiring}
 
 /**
- * The BackendWiring class is the "web-extension-framework" API to code that runs in backend contexts like a background
+ * The BackendWiring class is the "browser-extension-framework" API to code that runs in backend contexts like a background
  * script or a popup.
  */
 class BackendWiring {
@@ -20,7 +20,7 @@ class BackendWiring {
     }
 
     /**
-     * Initialize the backend components of "web-extension-framework".
+     * Initialize the backend components of "browser-extension-framework".
      *
      * - Create an RPC server in the background script that will receive remote procedure call (RPC) requests from the front-end
      *   and then executes those requests.

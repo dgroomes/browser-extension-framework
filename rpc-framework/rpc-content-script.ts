@@ -9,7 +9,7 @@
 // First of all, it's not consistent in general because it's not using a class, but to be honest, classes are often not
 // the right tool for the job.
 
-import {chrome} from "../web-extension-types/chrome-extension-types.d.ts"
+import {chrome} from "../browser-extension-types/chrome-extension-types.d.ts"
 
 declare global {
     interface Window {
