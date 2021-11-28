@@ -102,8 +102,6 @@ async function getRpcClient() {
 
     const browserDescriptor = await getBrowserDescriptor()
 
-    // For now, the background to content script RPC client is the same for Chromium and Firefox but when I implement
-    // the "passing of the return value" there will need to be different implementations for Chromium and Firefox.
     if (browserDescriptor === "chromium") {
         _rpcClient = new ChromiumBackgroundToContentScriptRpcClient(activeTab.id)
     } else if (browserDescriptor === "firefox") {

@@ -9,8 +9,8 @@ export {BackendWiring}
  */
 class BackendWiring {
 
-    rpcServer: RpcServer
     rpcClient: RpcClient
+    rpcServer: RpcServer
     #contentScriptFileName : string
 
     constructor(contentScriptFileName: string, rpcClient: RpcClient, rpcServer: RpcServer) {
@@ -26,8 +26,8 @@ class BackendWiring {
      *   and then executes those requests.
      */
     static async initialize(contentScriptFileName: string) : Promise<BackendWiring> {
+        const rpcClient = await getRpcClient();
         const rpcServer = await getRpcServer();
-        const rpcClient = await getRpcClient()
         return new BackendWiring(contentScriptFileName, rpcClient, rpcServer);
     }
 
@@ -58,7 +58,7 @@ class BackendWiring {
  */
 async function executeInstrumentedContentScript(fileName) : Promise<void> {
     await execContentScript("/rpc-framework/rpc-content-script.js")
-    console.debug(`[inject-script.js] Executing content script: ${fileName}`)
+    console.debug(`[backend-wiring.js] Executing content script: ${fileName}`)
 
     // Set up a messaging system listener that waits for the "page-script-satisfied" signal.
     //
@@ -67,12 +67,12 @@ async function executeInstrumentedContentScript(fileName) : Promise<void> {
     // executing, then there is a race condition where the content script and page script might complete and send the
     // "page-script-satisfied" signal before the listener is even created. In that case, the listener was too late.
     const pageScriptSatisfied: Promise<void> = new Promise<void>(resolve => {
-        console.debug(`[inject-script.js] [${Date.now()}] Registering listener for 'page-script-satisfied'`)
+        console.debug(`[backend-wiring.js] [${Date.now()}] Registering listener for 'page-script-satisfied'`)
         chrome.runtime.onMessage.addListener(function pageScriptSatisfiedListener(message, _sender, _sendResponse) {
-            console.debug("[inject-script.js] Received a message from the extension messaging system:")
+            console.debug("[backend-wiring.js] Received a message from the extension messaging system:")
             console.debug(JSON.stringify({message}, null, 2))
             if (message === "page-script-satisfied") {
-                console.debug(`[inject-script.js] Detected that the page script has been loaded into the web page and is satisfied`)
+                console.debug(`[backend-wiring.js] Detected that the page script has been loaded into the web page and is satisfied`)
                 resolve(undefined)
                 chrome.runtime.onMessage.removeListener(pageScriptSatisfiedListener)
             }
@@ -96,7 +96,7 @@ async function executeInstrumentedContentScript(fileName) : Promise<void> {
  * @return a promise that resolves when the content script has been loaded/executed(?)
  */
 async function execContentScript(fileName: string) : Promise<void> {
-    console.debug(`[popup.js] Executing content script: ${fileName}`)
+    console.debug(`[backend-wiring.js] Executing content script: ${fileName}`)
     return new Promise(resolve => {
         chrome.tabs.executeScript({
             file: fileName

@@ -17,6 +17,13 @@
   "web_accessible_resources": [
     "dcl-page-script.js"
   ],
+  "externally_connectable": {
+    "matches": [
+      "*://*.wikipedia.org/*",
+      "https://vuejs.org/*",
+      "https://lodash.com/*"
+    ]
+  },
   "browser_action": {
     "default_title": "Detect Code Libraries",
     "default_popup": "dcl-popup.html"

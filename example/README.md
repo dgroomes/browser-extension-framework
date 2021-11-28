@@ -1,20 +1,20 @@
 # example
 
-NOT YET FULLY IMPLEMENTED (only a 'hello world' has been implemented)
-
 This is an example browser extension that uses WebExtensionFramework.
 
 ## "Detect Code Libraries"
 
 This example browser extension is called *Detect Code Libraries* (DCL). It uses WebExtensionFramework and adds code to
-the web page to detect what JavaScript libraries are loaded. For example, it can detect jQuery, React, Vue, Lodash, etc.
+the web page to detect what JavaScript libraries are loaded. It tries to detect if jQuery, Vue or Lodash is loaded.
+(This is a limited list, but this is just a contrived browser extension example!).
+
 The "detected libraries" data is sent from the web page to
 a [popup](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/user_interface/Popups)
-script and shown in a popup dialog. It's implemented as a Chrome extension but it should work easily on other Chromium
+script and shown in a system alert dialog. It's implemented as a Chrome extension but it should work on other Chromium
 browsers with minimal changes.
 
 Now, consider how the detection feature must be implemented. JavaScript must be injected into the web page so that it
-may look for global variables like `jQuery` and `React`. Injecting JavaScript code into the web page can only be done
+may look for global variables like `jQuery` or `Vue`. Injecting JavaScript code into the web page can only be done
 from a content script. And injecting a content script must be done from a background or popup script! Phew, that's a lot
 of JavaScript execution environments. Keep in mind these components:
 
@@ -46,17 +46,19 @@ Follow these instructions to install the tool as a Chrome browser extension and 
 1. Enable developer mode
     * Enable the *Developer mode* toggle control in the upper right corner of the page
 1. Install the extension
-    * Click the *Load unpacked* button
+    * Click the *Load unpacked* buttonp
     * In the file finder window that opens, find the extension distribution directory `distribution/`, single click it
       to highlight it, and click the *Select* button.
     * It's installed!
-1. Open the browser to any website
+1. Open the browser to <https://en.wikipedia.org/wiki/Main_Page>
 1. Detect code libraries
     * Open the extensions menu by pressing the puzzle icon in the top right of the window
     * Click the "detect-code-libraries" extension entry
-    * A popup will show up with a "Say hello" button. Click it. You should see a "Hello world!" alert!
+    * A popup will show up with a "Detect" button. Click it. You should see an alert dialog show up which says that
+      jQuery was detected!
+1. Try more sites:
+    * Detect libraries at <https://vuejs.org/> and <https://lodash.com/>.
+    * To be able to detect libraries on other sites, you must first add them to the `externally_connectable`
+      configuration in the `manifest.json` file.
 
-## Reference
 
-* [Chrome extension docs: Manifest V2 Getting started](https://developer.chrome.com/docs/extensions/mv2/getstarted/)
-* [Chrome extension docs: chrome.browserAction](https://developer.chrome.com/docs/extensions/reference/browserAction/)

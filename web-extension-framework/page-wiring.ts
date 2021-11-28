@@ -77,8 +77,8 @@ function detectEnvironment(): ContextInfo {
      * character.
      *
      * @param url. For example:
-     *               - chrome-extension://akidegfimbjmokpejlcnjagogamdiinl/web-page/posts-viewer.html
-     *               - moz-extension://df0b610b-995b-9240-8c3b-fcaf155c9005/web-page/web-load-source.js
+     *               - chrome-extension://akidegfimbjmokpejlcnjagogamdiinl/some-page.html
+     *               - moz-extension://df0b610b-995b-9240-8c3b-fcaf155c9005/some-code.js
      */
     function detectFromExtensionUrl(url) {
         const regex = new RegExp("(chrome-extension|moz-extension)://([a-z0-9-]+)")
@@ -97,8 +97,6 @@ function detectEnvironment(): ContextInfo {
         info.webExtensionId = matches[2]
     }
 
-    // The "posts-viewer.html" page itself is served by the web extension and so the URL protocol will be
-    // "chrome-extension://" or "moz-extension://"
     if (window.origin.startsWith("chrome-extension://") || window.origin.startsWith("moz-extension://")) {
         detectFromExtensionUrl(window.origin)
         return info

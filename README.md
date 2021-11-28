@@ -112,3 +112,13 @@ extension and web page contexts:
 General clean ups, TODOs and things I wish to implement for this project:
 
 * [ ] IN PROGRESS Add an example web extension
+
+## Reference
+
+* [Chrome extension docs: Manifest V2 Getting started](https://developer.chrome.com/docs/extensions/mv2/getstarted/)
+* [Chrome extension docs: chrome.browserAction](https://developer.chrome.com/docs/extensions/reference/browserAction/)
+* [Chrome extension docs: "externally_connectable"](https://developer.chrome.com/docs/extensions/mv3/manifest/externally_connectable/)
+* [MDN Web Docs: Manifest property "externally_connectable"](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/externally_connectable)
+    * The `externally_connectable` is not supported in Firefox. An alternative must be used for message passing between
+      the web page and the extension.
+      See <https://github.com/mdn/webextensions-examples/tree/master/page-to-extension-messaging>.
