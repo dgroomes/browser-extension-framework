@@ -1,7 +1,7 @@
-// This is a component of 'browser-extension-framework'.
+// This is a component of BrowserExtensionFramework.
 
-import {initRpcWebPage} from "../rpc-framework/rpc-web-page.ts";
-import {RpcClient, RpcServer} from "../rpc-framework/rpc.ts";
+import {initRpcWebPage} from "../rpc/rpc-web-page.ts";
+import {RpcClient, RpcServer} from "../rpc/rpc.ts";
 
 export {PageWiring}
 
@@ -12,7 +12,7 @@ interface ContextInfo {
 }
 
 /**
- * The PageWiring class is the "browser-extension-framework" API to code than runs on the web page or in a popup script.
+ * The PageWiring class is the BrowserExtensionFramework API to code than runs on the web page or in a popup script.
  *
  * This class should not be used from content scripts or background scripts.
 
@@ -50,7 +50,7 @@ class PageWiring {
 
     /**
      * This function must be invoked when any initialization logic is finished. By calling this function, the
-     * "page-script-satisfied" signal is sent to the backend components of "browser-extension-framework".
+     * "page-script-satisfied" signal is sent to the backend components of BrowserExtensionFramework.
      */
     satisfied(): void {
         console.log("[page-wiring.js] Satisfied. The web page RPC server will start listening now.")

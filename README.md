@@ -1,6 +1,6 @@
 # browser-extension-framework
 
-🛠 BrowserExtensionFramework is an RPC-centric browser extension framework.
+🛠 BrowserExtensionFramework is an RPC-centric framework for browser extensions (sometimes called web extensions).
 
 ---
 **NOTE**: This was developed on macOS and for my own personal use.
@@ -11,20 +11,18 @@
 
 The source code layout:
 
-* `browser-extension-types/`
+* `vendor-extension-types/`
     * TypeScript type declaration files for browser (vendor) JavaScript APIs. This means there are `.d.ts` files for
       Chromium's `chrome` JavaScript APIs and FireFox's `browser` JavaScript APIs. Yes there is probably an open source
       version of this but I would prefer to minimize third-party dependencies where feasible (Update: I'm happy to depend
       on first-party libraries from, for example, Mozilla. I think they have a nice polyfill).
-* `rpc-framework/`
+* `rpc/`
     * The code in this directory implements a generic Remote Procedure Call (RPC) framework for browser extensions. This
       code has components that run in all contexts: background scripts, popup scripts, content scripts, and the web
       page.
     * For more information, see [RPC Framework](#rpc-framework)
-* `browser-extension-framework/`
-    * The code in this directory implements an RPC-centric browser extension framework. It depends on the lower-level
-      `rpc-framework`.
-    * For more information, see [Browser Extension Framework](#browser-extension-framework)
+* `wiring/`
+    * Th code in this directory is the main framework code. It depends on the lower-level RPC framework.
 
 ## Browser Extension Framework
 
@@ -36,7 +34,7 @@ Here are some key points:
 * It supports Manifest V2 APIs only (Manifest V3 APIs are not supported)
 * It is useful for injecting JavaScript files into the web page
 * It is useful for two-way communication between components. E.g. web-page-to-background, popup-to-background, etc.
-* It depends on `rpc-framework/`
+* It depends on the RPC framework
 * If you do not need to inject JavaScript code into the web page, then you probably don't need this framework.
 * This framework only supports injecting one JavaScript file into the web page. This is because of the implementation
   detail around the hardcoded "page-script-satisfied" signal. It could be made dynamic with more complexity but I don't
@@ -74,14 +72,14 @@ necessity.
 
 The source code is laid out in a file structure that groups code by the execution context that the code runs in:
 
-* `rpc-framework/rpc.js`
+* `rpc/rpc.js`
     * The code in this file is foundational common code for the RPC framework. It is used in all contexts of a web
       extension: background scripts, popup scripts, content scripts, and the web page.
-* `rpc-framework/rpc-web-page.js`
+* `rpc/rpc-web-page.js`
     * The code in this file runs on the web page.
-* `rpc-framework/rpc-backend.js/`
+* `rpc/rpc-backend.js/`
     * The code in this file runs in the extension *backend* contexts: background workers, popups, and content scripts.
-* `rpc-framework/content-script.js`
+* `rpc/content-script.js`
     * The code in this file runs in a content script.
 
 One thing I'm omitting with the RPC implementation is an "absolute unique identifier" to associate with each message.
@@ -111,7 +109,9 @@ extension and web page contexts:
 
 General clean ups, TODOs and things I wish to implement for this project:
 
-* [ ] IN PROGRESS Add an example web extension
+* [x] DONE Add an example web extension
+* [x] DONE re-organize the directory layout. There's no need for a "browser-extension-framework/" directory. Too
+      verbose.
 
 ## Reference
 

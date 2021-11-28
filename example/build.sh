@@ -28,7 +28,7 @@ build_distribution() {
   # Delete the build directory and everything inside of it if it already exists and then create it again.
   mkdir -p "$output_dir"
   rm -rf "$output_dir"
-  mkdir -p "$output_dir" "$output_dir/rpc-framework"
+  mkdir -p "$output_dir"
 
   # Copy over non-TypeScript files
   cp "$source_dir/manifest.json" "$output_dir"
@@ -39,7 +39,8 @@ build_distribution() {
   deno_bundle "$source_dir/dcl-popup-script.ts" "$output_dir/dcl-popup-script.js"
   deno_bundle "$source_dir/dcl-content-script.ts" "$output_dir/dcl-content-script.js"
   deno_bundle "$source_dir/dcl-page-script.ts" "$output_dir/dcl-page-script.js"
-  deno_bundle "$project_dir/../rpc-framework/rpc-content-script.ts" "$output_dir/rpc-framework/rpc-content-script.js"
+  mkdir "$output_dir/rpc"
+  deno_bundle "$project_dir/../rpc/rpc-content-script.ts" "$output_dir/rpc/rpc-content-script.js"
 }
 
 preconditions

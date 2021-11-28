@@ -1,4 +1,4 @@
-import {chrome} from "../browser-extension-types/chrome-extension-types.d.ts";
+import {chrome} from "../vendor-extension-types/chrome-extension-types.d.ts";
 export {injectInstrumentedPageScript}
 
 // Define a global "window" variable that we can use to keep track of the lifecycle.
@@ -14,7 +14,7 @@ declare global {
  * This function should be called from a content script.
  *
  * The description "framework-instrumented" means that the JavaScript file being injected must include lifecycle code
- * from the "browser-extension-framework". It is up to the programmer to ensure that the given JavaScript file is properly
+ * from the BrowserExtensionFramework. It is up to the programmer to ensure that the given JavaScript file is properly
  * instrumented. If you inject non-instrumented, then the returned Promise will never resolve.
  *
  * This function would be used to inject the "dcl-page-script.js" file as described in the "Detect Code Libraries"

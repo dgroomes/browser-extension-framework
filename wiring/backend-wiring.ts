@@ -1,10 +1,10 @@
-import {chrome} from "../browser-extension-types/chrome-extension-types.d.ts"
-import {RpcClient, RpcServer} from "../rpc-framework/rpc.ts";
-import {getRpcClient, getRpcServer} from "../rpc-framework/rpc-backend.ts";
+import {chrome} from "../vendor-extension-types/chrome-extension-types.d.ts"
+import {RpcClient, RpcServer} from "../rpc/rpc.ts";
+import {getRpcClient, getRpcServer} from "../rpc/rpc-backend.ts";
 export {BackendWiring}
 
 /**
- * The BackendWiring class is the "browser-extension-framework" API to code that runs in backend contexts like a background
+ * The BackendWiring class is the BrowserExtensionFramework API to code that runs in backend contexts like a background
  * script or a popup.
  */
 class BackendWiring {
@@ -20,7 +20,7 @@ class BackendWiring {
     }
 
     /**
-     * Initialize the backend components of "browser-extension-framework".
+     * Initialize the backend components of BrowserExtensionFramework.
      *
      * - Create an RPC server in the background script that will receive remote procedure call (RPC) requests from the front-end
      *   and then executes those requests.
@@ -57,7 +57,7 @@ class BackendWiring {
  * signal.
  */
 async function executeInstrumentedContentScript(fileName) : Promise<void> {
-    await execContentScript("/rpc-framework/rpc-content-script.js")
+    await execContentScript("/rpc/rpc-content-script.js")
     console.debug(`[backend-wiring.js] Executing content script: ${fileName}`)
 
     // Set up a messaging system listener that waits for the "page-script-satisfied" signal.
