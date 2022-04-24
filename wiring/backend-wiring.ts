@@ -4,7 +4,7 @@ import {getRpcClient, getRpcServer} from "../rpc/rpc-backend.ts";
 export {BackendWiring}
 
 /**
- * The BackendWiring class is the BrowserExtensionFramework API to code that runs in backend contexts like a background
+ * The BackendWiring class is the BrowserExtensionFramework API for code that runs in backend contexts like a background
  * script or a popup.
  */
 class BackendWiring {
@@ -22,10 +22,13 @@ class BackendWiring {
     /**
      * Initialize the backend components of BrowserExtensionFramework.
      *
+     * - Initializes the lower-level RPC framework
      * - Create an RPC server in the background script that will receive remote procedure call (RPC) requests from the front-end
      *   and then executes those requests.
      */
     static async initialize(contentScriptFileName: string) : Promise<BackendWiring> {
+        await execContentScript("/rpc/rpc-content-script.js")
+        await execContentScript("/content-script-middleware.js")
         const rpcClient = await getRpcClient();
         const rpcServer = await getRpcServer();
         return new BackendWiring(contentScriptFileName, rpcClient, rpcServer);
@@ -57,7 +60,6 @@ class BackendWiring {
  * signal.
  */
 async function executeInstrumentedContentScript(fileName) : Promise<void> {
-    await execContentScript("/rpc/rpc-content-script.js")
     console.debug(`[backend-wiring.js] Executing content script: ${fileName}`)
 
     // Set up a messaging system listener that waits for the "page-script-satisfied" signal.
@@ -79,11 +81,8 @@ async function executeInstrumentedContentScript(fileName) : Promise<void> {
         })
     })
 
-    // Execute the content-script. We don't bother to register a callback because it would be redundant. We already set
-    // up the "pageScriptSatisfied". Technically, it might be effective to register a callback if there was a chance
-    // that the "executeScript" operation failed. But I don't know if the callback is called only on success or if it
-    // is also called on failure. And if it is called on failure, what arguments are passed? Error scenarios are not
-    // documented in the Chrome docs: https://developer.chrome.com/docs/extensions/reference/tabs/#method-executeScript
+    // Send a "inject-page-script" request which will be handled by the middleware.
+    // todo should this wait for the response? That might be a more error-message-friendly implementation.
     chrome.tabs.executeScript({file: fileName})
 
     await pageScriptSatisfied

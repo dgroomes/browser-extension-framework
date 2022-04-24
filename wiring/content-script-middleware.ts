@@ -1,3 +1,8 @@
+// The code in this file operates as middleware for the BrowserExtensionFramework.
+//
+// It runs in a content script. It services requests from the framework "backend wiring" to inject the web page with a
+// page script. It should not be called by user code. It's only called by framework code.
+
 import {chrome} from "../vendor-extension-types/chrome-extension-types.d.ts";
 export {injectInstrumentedPageScript}
 
@@ -6,6 +11,42 @@ declare global {
     interface Window {
         injectInstrumentedPageScript_status: string
     }
+}
+
+chrome.runtime.onMessage.addListener(injectPageScriptRequestListener)
+
+/**
+ * Listen for "page script injection" requests from the framework backend.
+ *
+ * Specifically, listens for messages described as "inject-page-script" from the extension messaging system.
+ */
+async function injectPageScriptRequestListener(message, _sender, _sendResponse) {
+    console.debug("[content-script-middleware.js] Received a message via the extension messaging system:")
+    console.debug(JSON.stringify({message}, null, 2))
+
+    if (!('procedureTargetReceiver' in message)) {
+        console.error("[content-script-middleware.js] Expected to find the field 'procedureTargetReceiver' but did not");
+        return;
+    }
+
+    if (message.procedureTargetReceiver !== "content-script-middleware") return false
+
+    const {procedureName, procedureArgs} = message
+
+    if (procedureName !== "inject-page-script") {
+        console.error(`[content-script-middleware.js] Expected to find 'inject-page-script' as the procedureName but found '${procedureName}'`)
+        return;
+    }
+
+    if (!('fileName' in procedureArgs)) {
+        console.error("[content-script-middleware.js] Expected to find the procedure arg 'fileName' but did not");
+        return;
+    }
+
+    const pageScriptFileName = procedureArgs.fileName;
+
+    await injectInstrumentedPageScript(pageScriptFileName);
+    console.debug(`[content-script-middleware.js] Successfully injected ${pageScriptFileName}!`);
 }
 
 /**

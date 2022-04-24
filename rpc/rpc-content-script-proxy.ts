@@ -1,9 +1,6 @@
 // This code is designed to run in a content script.
 //
-// It will load the web page with the web page components of the RPC framework.
-//
-// It proxies messages between the web page, background scripts and potentially other JavaScript execution environments
-// like extension popup pages.
+// This code proxies messages between the web page, background scripts and popup scripts.
 //
 // Note: Wouldn't it be consistent with the design of the repo that this be designed as an RpcServer and multiple RpcClients?
 // First of all, it's not consistent in general because it's not using a class, but to be honest, classes are often not
@@ -27,14 +24,15 @@ if (window.rpcContentScriptInitialized === undefined) {
     console.debug("[rpc-content-script.js] Already loaded.")
 }
 
-// Connect web page RPC clients to background RPC servers.
-//
-// Listen for "RPC request" messages on the window and forward them to an RPC server via the extension messaging system.
-// Wait for a return value and then broadcast it to the window as another message. The web page should be expecting this
-// message.
-//
-// This is only needed for Firefox. Chromium browsers, by contrast, give the web page special access to the extension
-// messaging API thanks to the "externally_connectable" Manifest field.
+/** Connect web page RPC clients to background RPC servers.
+ *
+ * Listen for "RPC request" messages on the window and forward them to an RPC server via the extension messaging system.
+ * Wait for a return value and then broadcast it to the window as another message. The web page should be expecting this
+ * message.
+ *
+ * This is only needed for Firefox. Chromium browsers, by contrast, give the web page special access to the extension
+ * messaging API thanks to the "externally_connectable" Manifest field.
+ */
 function webPageRpcClientsListener({data}) {
     console.debug(`[rpc-content-script.js] Received a message on the 'window'. Here is the 'data':`)
     console.debug(JSON.stringify({data}, null, 2))
@@ -88,11 +86,13 @@ function webPageRpcClientsListener({data}) {
         })
 }
 
-// Connect background RPC clients to web page RPC servers.
-//
-// Listen for "RPC request" messages from the extension messaging system and forward them to an RPC server on the web
-// page via a window message. Then, if requested, set up another window listener to listen for the eventual return value
-// of the RPC request from the web page. Forward this to the original background RPC client.
+/**
+ * Connect background RPC clients to web page RPC servers.
+ *
+ * Listen for "RPC request" messages from the extension messaging system and forward them to an RPC server on the web
+ * page via a window message. Then, if requested, set up another window listener to listen for the eventual return value
+ * of the RPC request from the web page. Forward this to the original background RPC client.
+ */
 function backgroundRpcClientsListener(message, _sender, sendResponse) {
     console.debug("[rpc-content-script.js] Received a message via the extension messaging system:")
     console.debug(JSON.stringify({message}, null, 2))

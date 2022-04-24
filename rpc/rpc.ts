@@ -47,7 +47,7 @@ abstract class RpcServer {
      * @param message
      * @return {boolean} true if the request should be handled by the server or false if not.
      */
-    intake(message) {
+    intake(message) : boolean {
         console.debug(`[RpcServer|${this.#descriptor}] Received message:`)
         console.debug(JSON.stringify({message}, null, 2))
 

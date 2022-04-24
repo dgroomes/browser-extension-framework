@@ -118,9 +118,15 @@ General clean ups, TODOs and things I wish to implement for this project:
       example extension and I was confused). 
 * [ ] Fix the double loading problem. This is all over the place. It double loads the source code when you click the
       extension browser action. It makes for an unusable experience except in the very narrow happy path.
-* [ ] Consider abstracting away the required content script "thin bootstrap" files. For example, `dcl-content-script.ts`
+* [ ] IN PROGRESS Consider abstracting away the required content script "thin bootstrap" files. For example, `dcl-content-script.ts`
       shouldn't have to exist. I thought it did earlier, but it's not needed. It can be replaced with a generic middleware
-      content script. 
+      content script. Update: design note, I think the RPC framework should have an extension mechanism to register
+      handlers in the proxy. I've gone down the wrong path trying to create new RPC clients just to send the "inject-page-script"
+      request, but that's not working.
+      * Rename `rpc-content-script.ts` to `rpc-content-script-middleware.ts`. 
+* [ ] Can the `dcl-init.ts` file be deleted?
+* [ ] `initRpcBackground` should be called automatically by `BackendWiring`. As a user of the API, it feels redundant
+       to have to call `initRpcBackground` and `BackendWiring.initialize`.
 
 ## Reference
 

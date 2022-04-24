@@ -103,11 +103,11 @@ async function getRpcClient() {
     const browserDescriptor = await getBrowserDescriptor()
 
     if (browserDescriptor === "chromium") {
-        _rpcClient = new ChromiumBackgroundToContentScriptRpcClient(activeTab.id)
+        _rpcClient = new ChromiumBackgroundToContentScriptRpcClient(activeTab.id);
     } else if (browserDescriptor === "firefox") {
-        _rpcClient = new FirefoxBackgroundToContentScriptRpcClient(activeTab.id)
+        _rpcClient = new FirefoxBackgroundToContentScriptRpcClient(activeTab.id);
     } else {
-        throw new Error(`Unexpected browser: '${browserDescriptor}'. Expected either 'chromium' or 'firefox'`)
+        throw new Error(`Unexpected browser: '${browserDescriptor}'. Expected either 'chromium' or 'firefox'`);
     }
 
     return _rpcClient

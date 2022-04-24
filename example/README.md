@@ -18,19 +18,12 @@ may look for global variables like `jQuery` or `Vue`. Injecting JavaScript code 
 from a content script. And injecting a content script must be done from a background or popup script! Phew, that's a lot
 of JavaScript execution environments. Keep in mind these components:
 
-1) The DCL popup script
-    * `dcl-popup-script.js`
-2) The DCL content script
-    * `dcl-content-script.js`
-3) The DCL web page script
-    * `dcl-page-script.js`
-
-The programmer must write each of these files. It is not possible for BrowserExtensionFramework to abstract away
-`dcl-content-script.js` or `dcl-page-script.js`. Abstracting away those files would require dynamic JavaScript,
-serializing/deserializing JavaScript code, and using `eval()`, which we are not willing to do.
-
-So, the API of BrowserExtensionFramework requires the programmer to still write all of these files but offers functions to
-reduce the boilerplate and handle message passing and lifecycle timing.
+1) The popup script
+    * This must be implemented by the DCL program. See the file: `dcl-popup-script.ts`.
+2) The content script
+    * This is handled by the framework. See the file: `content-script-middleware.ts`.
+3) The web page script
+    * This must be implemented by the DCL program. See the file: `dcl-page-script.ts`
 
 ## Instructions
 
