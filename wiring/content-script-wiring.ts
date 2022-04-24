@@ -24,7 +24,7 @@ declare global {
  *
  * @return a promise that resolves after the script has loaded and when it has signalled it is "satisfied"
  */
-async function injectInstrumentedPageScript(fileName: string) : Promise<void> {
+function injectInstrumentedPageScript(fileName: string) : Promise<void> {
     if (window.injectInstrumentedPageScript_status === undefined) {
         console.debug("[content-script-wiring.js] Injecting an instrumented page script...")
         window.injectInstrumentedPageScript_status = "in-progress";
@@ -48,7 +48,7 @@ async function injectInstrumentedPageScript(fileName: string) : Promise<void> {
     // In practice, I think that would never happen. But for the sake of avoiding ambiguity, the implementation order
     // is helpful.
     const pageScriptSatisfied = new Promise<void>(resolve => {
-        window.addEventListener("message", function webPageInitializedListener({data}) {
+        addEventListener("message", function webPageInitializedListener({data}) {
             console.debug(`[content-script-wiring.js] Received a message on the 'window'. Here is the 'data':`);
             console.debug(JSON.stringify({data}, null, 2));
             if (data === "page-script-satisfied") {
@@ -56,7 +56,7 @@ async function injectInstrumentedPageScript(fileName: string) : Promise<void> {
                 chrome.runtime.sendMessage(null, "page-script-satisfied");
 
                 resolve();
-                window.removeEventListener("message", webPageInitializedListener);
+                removeEventListener("message", webPageInitializedListener);
             }
         });
     });

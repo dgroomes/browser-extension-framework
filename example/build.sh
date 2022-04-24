@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Build the web extension distribution from the source code.
+# Build the "Detect Code Libraries" (DCL) web extension distribution from the source code.
 #
 # Specifically, this will create the directory: "distribution/". The contents of this directory are ready to be loaded into
 # a Chromium browser (Chrome and Opera should work) as a web extension! See the README for instructions.
@@ -18,7 +18,7 @@ preconditions() {
 
 # Delegate to the "deno bundle ..." command
 deno_bundle() {
-  deno bundle --quiet --config deno.jsonc "${@}"
+  deno bundle --quiet --config ../deno.json "${@}"
 }
 
 build_distribution() {

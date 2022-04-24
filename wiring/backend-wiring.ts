@@ -11,7 +11,7 @@ class BackendWiring {
 
     rpcClient: RpcClient
     rpcServer: RpcServer
-    #contentScriptFileName : string
+    readonly #contentScriptFileName : string
 
     constructor(contentScriptFileName: string, rpcClient: RpcClient, rpcServer: RpcServer) {
         this.#contentScriptFileName = contentScriptFileName;
@@ -95,7 +95,7 @@ async function executeInstrumentedContentScript(fileName) : Promise<void> {
  * @param fileName the file name of the content script
  * @return a promise that resolves when the content script has been loaded/executed(?)
  */
-async function execContentScript(fileName: string) : Promise<void> {
+function execContentScript(fileName: string) : Promise<void> {
     console.debug(`[backend-wiring.js] Executing content script: ${fileName}`)
     return new Promise(resolve => {
         chrome.tabs.executeScript({

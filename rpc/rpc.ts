@@ -88,7 +88,7 @@ abstract class RpcServer {
      * be the "procedureArgs". The procedure must return a Promise. The Promise should resolve with the return value of
      * interest when the procedure is finished its work.
      */
-    registerPromiseProcedure <T> (procedureName, procedure : (procedureArgs: any) => Promise<T>) {
+    registerPromiseProcedure <T,R> (procedureName, procedure : (procedureArgs: R) => Promise<T>) {
         this.#promiseProcedures.set(procedureName, procedure)
     }
 
@@ -130,7 +130,7 @@ abstract class RpcClient {
      *
      * @return {Object} a correctly formatted RPC request message
      */
-    createRequest(procedureName, procedureArgs): RpcRequestMessage {
+    createRequest<T>(procedureName, procedureArgs): RpcRequestMessage<T> {
         return {
             procedureTargetReceiver: this.#procedureTargetReceiver,
             procedureName,
@@ -149,12 +149,12 @@ abstract class RpcClient {
      * @param procedureArgs the "procedure arguments" of the remote procedure call.
      * @return {Promise} a promise containing the return value of the remote procedure call
      */
-    abstract execRemoteProcedure(procedureName, procedureArgs): Promise<any>
+    abstract execRemoteProcedure<T,R>(procedureName, procedureArgs: T): Promise<R>
 }
 
-interface RpcRequestMessage {
-    procedureTargetReceiver: any
+interface RpcRequestMessage<T> {
+    procedureTargetReceiver: string
     procedureName: string
-    procedureArgs: Array<any>
+    procedureArgs: T
     procedureCaptureReturnValue: boolean
 }

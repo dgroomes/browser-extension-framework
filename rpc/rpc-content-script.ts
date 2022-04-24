@@ -21,7 +21,7 @@ declare global {
 if (window.rpcContentScriptInitialized === undefined) {
     console.debug("[rpc-content-script.js] Loading...")
     window.rpcContentScriptInitialized = true
-    window.addEventListener("message", webPageRpcClientsListener)
+    globalThis.addEventListener("message", webPageRpcClientsListener)
     chrome.runtime.onMessage.addListener(backgroundRpcClientsListener)
 } else {
     console.debug("[rpc-content-script.js] Already loaded.")
@@ -84,7 +84,7 @@ function webPageRpcClientsListener({data}) {
                 procedureName,
                 procedureReturnValue
             }
-            window.postMessage(messageToWindow, "*")
+            postMessage(messageToWindow, "*")
         })
 }
 
@@ -104,7 +104,7 @@ function backgroundRpcClientsListener(message, _sender, sendResponse) {
     const {procedureName, procedureArgs, procedureCaptureReturnValue} = message
 
     if (procedureCaptureReturnValue) {
-        window.addEventListener("message", function captureReturnValueListener({data}) {
+        addEventListener("message", function captureReturnValueListener({data}) {
             console.debug("[rpc-content-script.js] The return value listener received a message via the extension messaging system:")
             console.debug(JSON.stringify({data}, null, 2))
             const {procedureReturnValue} = data
@@ -125,7 +125,7 @@ function backgroundRpcClientsListener(message, _sender, sendResponse) {
             console.debug(JSON.stringify(data, null, 2))
             sendResponse(procedureReturnValue)
 
-            window.removeEventListener("message", captureReturnValueListener)
+            removeEventListener("message", captureReturnValueListener)
         })
         listenerReturnValue = true // Returning "true" tells Firefox that we plan to invoke the "sendResponse" function later (rather, asynchronously). Otherwise, the "sendResponse" function would become invalid.
     }
@@ -137,7 +137,7 @@ function backgroundRpcClientsListener(message, _sender, sendResponse) {
         procedureArgs
     }
     console.debug(JSON.stringify(messageOutgoing, null, 2))
-    window.postMessage(messageOutgoing, "*")
+    postMessage(messageOutgoing, "*")
     console.debug(`[rpc-content-script.js] Returning '${JSON.stringify(listenerReturnValue)}'`)
     return listenerReturnValue
 }

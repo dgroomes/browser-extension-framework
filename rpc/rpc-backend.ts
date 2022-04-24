@@ -52,7 +52,8 @@ let _browserDescriptor = null
 function getBrowserDescriptor() {
     if (_browserDescriptor !== null) return _browserDescriptor
     return new Promise((resolve, reject) => {
-        chrome.storage.local.get("rpcBrowserDescriptor", (found) => {
+        // deno-lint-ignore no-explicit-any
+        chrome.storage.local.get<any>("rpcBrowserDescriptor", (found) => {
             console.log(`[rpc-backend.js] Found rpcBrowserDescriptor: ${JSON.stringify(found, null, 2)}`)
             _browserDescriptor = found.rpcBrowserDescriptor
             if (typeof _browserDescriptor === "undefined") {
@@ -124,7 +125,7 @@ class ChromiumBackgroundRpcServer extends RpcServer {
     }
 
     listen() {
-        chrome.runtime.onMessageExternal.addListener((message, sender, sendResponse) => {
+        chrome.runtime.onMessageExternal.addListener((message, _sender, sendResponse) => {
             if (!this.intake(message)) {
                 return
             }
@@ -146,7 +147,7 @@ class FirefoxBackgroundRpcServer extends RpcServer {
     }
 
     listen() {
-        browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
+        browser.runtime.onMessage.addListener((message, _sender, sendResponse) => {
             if (!this.intake(message)) {
                 return false
             }
@@ -173,10 +174,10 @@ class ChromiumBackgroundToContentScriptRpcClient extends RpcClient {
         this.#tabId = tabId
     }
 
-    async execRemoteProcedure(procedureName, procedureArgs) {
+    async execRemoteProcedure<T,R>(procedureName, procedureArgs: T): Promise<R> {
         const rpcRequest = this.createRequest(procedureName, procedureArgs)
 
-        let responsePromise = new Promise(resolve => {
+        const responsePromise = new Promise<R>(resolve => {
             console.debug(`[ChromiumBackgroundToContentScriptRpcClient] Registering listener on the messaging system to listen for RPC return value...`)
             chrome.runtime.onMessageExternal.addListener(function returnValueListener(message) {
                 console.debug(`[ChromiumBackgroundToContentScriptRpcClient] Received message:`)
@@ -206,8 +207,8 @@ class FirefoxBackgroundToContentScriptRpcClient extends RpcClient {
         this.#tabId = tabId
     }
 
-    async execRemoteProcedure(procedureName, procedureArgs) {
-        let rpcRequest = this.createRequest(procedureName, procedureArgs)
+    async execRemoteProcedure<T,R>(procedureName, procedureArgs: T): Promise<R> {
+        const rpcRequest = this.createRequest(procedureName, procedureArgs)
         rpcRequest.procedureCaptureReturnValue = true
         return await browser.tabs.sendMessage(this.#tabId, rpcRequest)
     }

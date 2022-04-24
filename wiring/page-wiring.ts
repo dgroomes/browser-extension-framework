@@ -55,20 +55,14 @@ class PageWiring {
     satisfied(): void {
         console.log("[page-wiring.js] Satisfied. The web page RPC server will start listening now.")
         this.rpcServer.listen()
-        window.postMessage("page-script-satisfied", "*");
+        postMessage("page-script-satisfied", "*");
     }
 }
 
 /**
- * Detect the current environment and assign the following global properties:
- *   - browserDescriptor
- *   - extensionContext
- *   - webResourcesOrigin
- *   - webExtensionId
+ * Detect the current environment.
  */
 function detectEnvironment(): ContextInfo {
-
-    const info: any = {}
 
     /**
      * Detect information based on the extension URL.
@@ -80,29 +74,35 @@ function detectEnvironment(): ContextInfo {
      *               - chrome-extension://akidegfimbjmokpejlcnjagogamdiinl/some-page.html
      *               - moz-extension://df0b610b-995b-9240-8c3b-fcaf155c9005/some-code.js
      */
-    function detectFromExtensionUrl(url) {
+    function detectFromExtensionUrl(url) : ContextInfo {
         const regex = new RegExp("(chrome-extension|moz-extension)://([a-z0-9-]+)")
         const matches = regex.exec(url)!
-        info.webResourcesOrigin = matches[0]
+        const webResourcesOrigin = matches[0]
 
         const host = matches[1]
-        if (host === "chrome-extension")
-            info.browserDescriptor = "chromium"
-        else if (host === "moz-extension") {
-            info.browserDescriptor = "firefox"
-        } else {
-            throw new Error(`Unrecognized host name: '${host}', Expected either 'chrome-extension' or 'moz-extension'`)
-        }
+        const browserDescriptor = (() : string => {
+            if (host === "chrome-extension")
+                return "chromium"
+            else if (host === "moz-extension") {
+                return "firefox"
+            } else {
+                throw new Error(`Unrecognized host name: '${host}', Expected either 'chrome-extension' or 'moz-extension'`)
+            }
+        })()
 
-        info.webExtensionId = matches[2]
+        const webExtensionId = matches[2]
+
+        return {
+            webResourcesOrigin,
+            browserDescriptor,
+            webExtensionId
+        }
     }
 
-    if (window.origin.startsWith("chrome-extension://") || window.origin.startsWith("moz-extension://")) {
-        detectFromExtensionUrl(window.origin)
-        return info
+    if (origin.startsWith("chrome-extension://") || window.origin.startsWith("moz-extension://")) {
+        return detectFromExtensionUrl(origin)
     }
 
     const script = document.getElementById("browser-extension-framework-injected-page-script") as HTMLScriptElement
-    detectFromExtensionUrl(script.src)
-    return info
+    return detectFromExtensionUrl(script.src)
 }

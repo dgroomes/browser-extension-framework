@@ -1,4 +1,5 @@
 // Type declarations for the Chrome web extension JavaScript API.
+// deno-lint-ignore-file no-explicit-any
 
 export {Chrome, Runtime, chrome, Tab}
 
@@ -53,13 +54,16 @@ interface Storage {
  * https://developer.chrome.com/docs/extensions/reference/storage/#type-StorageArea
  */
 interface StorageArea {
-    get(key: string): Promise<any>
+    get<T>(key: string): Promise<T>
 
-    get(key: string, callback: (found: any) => void): Promise<any>
+    get<T>(key: string, callback: (found: T) => void): void
 
-    set(items: any): Promise<any>
+    get<T>(key: string): Promise<T>
 
-    set(items: any, callback: () => void): Promise<any>
+    set<T>(items: T, callback: () => void): void
+
+    set<T>(items: T): Promise<T>
+
 }
 
 /**

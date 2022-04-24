@@ -1,3 +1,5 @@
+// deno-lint-ignore-file no-explicit-any
+
 export {browser}
 
 /** FireFox web extension docs and the "browser" global variable: https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API */

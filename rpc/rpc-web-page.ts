@@ -28,11 +28,11 @@ function initRpcWebPage(browserDescriptor, webExtensionId) : [RpcClient, RpcServ
         console.debug("[rpc-web-page.js] Initializing...")
         window.initRpcWebPage_status = "in-progress";
     } else if (window.initRpcWebPage_status === "in-progress") {
-        let msg = `[rpc-web-page.ts] The RPC framework initialization on the web page is already 'in-progress'. This is undefined behavior.`;
+        const msg = `[rpc-web-page.ts] The RPC framework initialization on the web page is already 'in-progress'. This is undefined behavior.`;
         console.error(msg);
         throw new Error(msg)
     } else if (window.initRpcWebPage_status === "initialized") {
-        let msg = `[rpc-web-page.ts] The RPC framework was already initialized on the web page. It is not allowed to initialize it again.`;
+        const msg = `[rpc-web-page.ts] The RPC framework was already initialized on the web page. It is not allowed to initialize it again.`;
         console.error(msg)
         throw new Error(msg)
     }
@@ -63,7 +63,7 @@ class ChromiumWebPageRpcServer extends RpcServer {
     }
 
     listen() {
-        window.addEventListener("message", ({data}) => {
+        addEventListener("message", ({data}) => {
             if (!this.intake(data)) {
                 return false
             }
@@ -96,7 +96,7 @@ class FirefoxWebPageRpcServer extends RpcServer {
     }
 
     listen() {
-        window.addEventListener("message", async ({data}) => {
+        addEventListener("message", async ({data}) => {
             if (!this.intake(data)) {
                 return false
             }
@@ -112,7 +112,7 @@ class FirefoxWebPageRpcServer extends RpcServer {
             }
             console.debug(`[FirefoxWebPageRpcServer] sending message:`)
             console.debug(JSON.stringify(returnMessage, null, 2))
-            window.postMessage(returnMessage, undefined)
+            postMessage(returnMessage, undefined)
         })
     }
 }
@@ -130,9 +130,9 @@ class ChromiumWebPageToBackgroundRpcClient extends RpcClient {
         this.#webExtensionId = webExtensionId
     }
 
-    execRemoteProcedure(procedureName, procedureArgs) {
+    execRemoteProcedure<T,R>(procedureName, procedureArgs: T) : Promise<R> {
         const rpcRequest = this.createRequest(procedureName, procedureArgs)
-        return new Promise((resolve) => {
+        return new Promise<R>((resolve) => {
             chrome.runtime.sendMessage(this.#webExtensionId, rpcRequest,
                 function (returnValue) {
                     console.debug("[ChromiumWebPageToBackgroundRpcClient] Got a return value from the remote procedure call:")
@@ -170,22 +170,22 @@ class FirefoxWebPageToContentScriptRpcClient extends RpcClient {
      * This function will send a message to the content-script RPC proxy ("rpc-content-script.js") and then
      * register a listener on the window to listen for the eventual expected response message.
      */
-    execRemoteProcedure(procedureName, procedureArgs) {
+    execRemoteProcedure<T,R>(procedureName, procedureArgs: T) : Promise<R> {
         // I'm assuming it's wise to wire up the event listener before posting the message to avoid a race condition.
         // That's why I've put this before the "window.postMessage". But I don't think it actually matters.
-        const returnValuePromise = new Promise((resolve => {
-            window.addEventListener("message", function listenForRpcResponse({data}) {
+        const returnValuePromise = new Promise<R>((resolve => {
+            addEventListener("message", function listenForRpcResponse({data}) {
                 if (data.procedureTargetReceiver === "web-page-client"
                     && data.procedureName === procedureName) {
 
-                    window.removeEventListener("message", listenForRpcResponse)
+                    removeEventListener("message", listenForRpcResponse)
                     resolve(data.procedureReturnValue)
                 }
             })
         }))
 
         const rpcRequest = this.createRequest(procedureName, procedureArgs)
-        window.postMessage(rpcRequest, "*")
+        postMessage(rpcRequest, "*")
 
         return returnValuePromise
     }

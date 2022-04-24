@@ -1,4 +1,8 @@
 // Learn more about Deno's configuration file from the docs: https://deno.land/manual/typescript/configuration
+//
+// I think there is a defect in the Deno Intellij plugin because I had to rename this file from 'deno.jsonc' to 'deno.json'
+// so Intellij would recognize the `"lib": ["dom", ...` option. Without this change, I got IDE red underline highlights
+// saying "Deno can't find 'document'. Add `"lib": "dom"` to your deno.json file".
 {
   "compilerOptions": {
     // The "lib" configuration helps us write browser-compatible JavaScript code. This means our TypeScript code will
