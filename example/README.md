@@ -48,8 +48,8 @@ Follow these instructions to install the tool as a Chrome browser extension and 
     * Enable the *Developer mode* toggle control in the upper right corner of the page
 1. Install the extension
     * Click the *Load unpacked* button
-    * In the file finder window that opens, find the extension distribution directory `distribution/`, single click it
-      to highlight it, and click the *Select* button.
+    * In the file finder window that opens, find the extension distribution directory `distribution/chromium-manifest-v2`,
+      single click it to highlight it, and click the *Select* button.
     * It's installed!
 1. Open the browser to <https://en.wikipedia.org/wiki/Main_Page>
 1. Detect code libraries

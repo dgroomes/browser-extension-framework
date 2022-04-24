@@ -118,7 +118,7 @@ General clean ups, TODOs and things I wish to implement for this project:
 * [ ] Consider abstracting away the required content script "thin bootstrap" files. For example, `dcl-content-script.ts`
       shouldn't have to exist. I thought it did earlier, but it's not needed. It can be replaced with a generic middleware
       content script. 
-* [ ] Support FireFox in the example. If the example supports both Chromium and FireFox, then I can build it, verify the
+* [ ] IN PROGRESS Support FireFox in the example. If the example supports both Chromium and FireFox, then I can build it, verify the
       behavior in both browsers, and have confidence that the framework still works.
 
 ## Reference
