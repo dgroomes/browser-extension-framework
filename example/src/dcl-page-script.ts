@@ -13,7 +13,9 @@ pageWiring.rpcServer.registerPromiseProcedure("detect", (_procedureArgs) => {
         detected.push("jQuery");
     }
 
-    if ((window as any).Vue !== undefined) {
+    if ((window as any).__VUE__ !== undefined) {
+        // There are a few ways to detect Vue. The Vue devtools features three specific approaches. Read the source
+        // code: https://github.com/vuejs/devtools/blob/da62deffcc374e5a7cb5e8a57c088857a24d4737/packages/shell-chrome/src/detector.js#L14
         console.log("[dcl-page-script.js] Vue is detected.");
         detected.push("Vue");
     }

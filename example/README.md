@@ -41,12 +41,13 @@ Follow these instructions to install the tool as a Chrome browser extension and 
     * > A modern runtime for JavaScript and TypeScript.
 1. Build the extension distribution:
     * `./build.sh`
+    * This will take 10+ seconds. Deno is working hard to type check the TypeScript code.
 1. Open Chrome's extension settings page
     * Open Chrome to the URL: `chrome://extensions`
 1. Enable developer mode
     * Enable the *Developer mode* toggle control in the upper right corner of the page
 1. Install the extension
-    * Click the *Load unpacked* buttonp
+    * Click the *Load unpacked* button
     * In the file finder window that opens, find the extension distribution directory `distribution/`, single click it
       to highlight it, and click the *Select* button.
     * It's installed!

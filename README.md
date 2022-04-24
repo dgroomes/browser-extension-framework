@@ -2,10 +2,7 @@
 
 🛠 BrowserExtensionFramework is an RPC-centric framework for browser extensions (sometimes called web extensions).
 
----
-**NOTE**: This was developed on macOS and for my own personal use.
-
----
+**NOTE**: This project was developed on macOS. It is for my own personal use.
 
 ## Design
 
@@ -47,8 +44,8 @@ environment like the web page, or maybe a NodeJS app. Plus, writing a program fo
 message passing code, Promises code and logging (for debugging) code. That's where BrowserExtensionFramework comes in.
 
 However, the framework cannot abstract away the JavaScript execution environments. The user of the API still needs to
-know how web extensions work and about each of the Java execution environments. In that sense, this API does not offer
-a strong abstraction but rather a *leaky abstration*. To make up for this, the framework offers block-level API
+know how web extensions work and about each of the JavaScript execution environments. In that sense, this API does not offer
+a strong abstraction but rather a *leaky abstraction*. To make up for this, the framework offers block-level API
 documentation, design notes and inline code comments. The framework code is meant to be read. Please study it before
 using it!
 
