@@ -1,0 +1,26 @@
+{
+  "name": "detect-code-libraries",
+  "description": "Detect Code Libraries: an example web extension that detects JavaScript libraries",
+  "version": "0.1",
+  "manifest_version": 2,
+  "background": {
+    "scripts": [
+      "dcl-init.js"
+    ]
+  },
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+  "web_accessible_resources": [
+    "dcl-page-script.js"
+  ],
+  "page_action": {
+    "default_popup": "dcl-popup.html",
+    "show_matches": [
+      "*://*.wikipedia.org/*",
+      "https://vuejs.org/*",
+      "https://lodash.com/*"
+    ]
+  }
+}

@@ -9,8 +9,7 @@ set -eu
 
 # Bash trick to get the directory containing the script. See https://stackoverflow.com/a/246128
 project_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-# TODO: add 'firefox-manifest-v2' to this array when support for FireFox is completed.
-extension_sources=(chromium-manifest-v2)
+extension_sources=(chromium-manifest-v2 firefox-manifest-v2)
 
 preconditions() {
   if ! which deno &> /dev/null; then

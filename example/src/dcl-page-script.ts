@@ -5,7 +5,7 @@ const pageWiring = PageWiring.initialize();
 
 pageWiring.rpcServer.registerPromiseProcedure("detect", detectCodeLibraries);
 
-function detectCodeLibraries() {
+function detectCodeLibraries() : Promise<string> {
     console.log("[dcl-page-script.js] The 'detect' procedure was called.");
 
     const detected: string[] = [];

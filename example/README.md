@@ -2,6 +2,7 @@
 
 This is an example browser extension that uses BrowserExtensionFramework.
 
+
 ## "Detect Code Libraries"
 
 This example browser extension is called *Detect Code Libraries* (DCL). It uses BrowserExtensionFramework and adds code to
@@ -32,6 +33,7 @@ serializing/deserializing JavaScript code, and using `eval()`, which we are not 
 So, the API of BrowserExtensionFramework requires the programmer to still write all of these files but offers functions to
 reduce the boilerplate and handle message passing and lifecycle timing.
 
+
 ## Instructions
 
 Follow these instructions to install the tool as a Chrome browser extension and use it:
@@ -41,9 +43,11 @@ Follow these instructions to install the tool as a Chrome browser extension and 
     * > A modern runtime for JavaScript and TypeScript.
 1. Build the extension distribution:
     * `./build.sh`
-    * This will take 10+ seconds. Deno is working hard to type check the TypeScript code.
+    * This will take 20+ seconds. Deno is working hard to type check the TypeScript code.
 1. Open Chrome's extension settings page
     * Open Chrome to the URL: `chrome://extensions`
+    * Alternatively, follow the instructions in the [Firefox](#firefox) section below to install the extension in
+      Firefox.
 1. Enable developer mode
     * Enable the *Developer mode* toggle control in the upper right corner of the page
 1. Install the extension
@@ -63,3 +67,15 @@ Follow these instructions to install the tool as a Chrome browser extension and 
       configuration in the `manifest.json` file.
 
 
+## Firefox
+
+DCL can also be installed as a web extension in Firefox! Follow these instructions to install it:
+
+1. Open Firefox to the debug page
+   * Open Firefox
+   * Paste and go to this URL: <about:debugging#/runtime/this-firefox>
+1. Load the plugin
+   * Click the button with the words *Load Temporary Add-on…*
+   * In the file finder window that opens, find the file `distribution/firefox-manifest-v2-web-extension/manifest.json` and
+     click *Open*
+   * It's installed!
