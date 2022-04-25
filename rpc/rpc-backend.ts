@@ -91,7 +91,7 @@ function setBrowserDescriptor(browserDescriptor) {
  *
  * @return {RpcClient}
  */
-async function getRpcClient() {
+async function getRpcClient() : Promise<RpcClient> {
     if (_rpcClient instanceof RpcClient) return _rpcClient
 
     const activeTab: Tab = await new Promise(resolve => {

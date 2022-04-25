@@ -18,8 +18,9 @@ The source code layout:
       code has components that run in all contexts: background scripts, popup scripts, content scripts, and the web
       page.
     * For more information, see [RPC Framework](#rpc-framework)
-* `wiring/`
-    * Th code in this directory is the main framework code. It depends on the lower-level RPC framework.
+* `api/`
+    * The code in this directory is the public API for the framework. It exposes `BackendWiring` and `PageWiring` classes
+      which must be called by user code.
 
 ## Browser Extension Framework
 
@@ -115,11 +116,19 @@ General clean ups, TODOs and things I wish to implement for this project:
       example extension and I was confused). 
 * [ ] Fix the double loading problem. This is all over the place. It double loads the source code when you click the
       extension browser action. It makes for an unusable experience except in the very narrow happy path.
-* [ ] Consider abstracting away the required content script "thin bootstrap" files. For example, `dcl-content-script.ts`
-      shouldn't have to exist. I thought it did earlier, but it's not needed. It can be replaced with a generic middleware
-      content script. 
 * [x] DONE Support FireFox in the example. If the example supports both Chromium and FireFox, then I can build it, verify the
-      behavior in both browsers, and have confidence that the framework still works.
+  behavior in both browsers, and have confidence that the framework still works.
+* [ ] IN PROGRESS Consider abstracting away the required content script "thin bootstrap" files. For example, `dcl-content-script.ts`
+      shouldn't have to exist. I thought it did earlier, but it's not needed. It can be replaced with a generic middleware
+      content script.
+* [ ] Be consistent in the name for `content-script-rpc-proxy`. The messaging system identifier name is `content-script-rpc-proxy`
+      but the file name is `rpc-content-script-proxy.ts`. A bit confusing.
+* [ ] Can the `dcl-init.ts` file be deleted?
+* [ ] `initRpcBackground` should be called automatically by `BackendWiring`. As a user of the API, it feels redundant
+       to have to call `initRpcBackground` and `BackendWiring.initialize`.
+* [ ] The implementation of RPC is now messily spread between the RPC-designated components (the code in `rpc/`) and the
+      big file `content-script-middleware.ts`. I'm not sure what to do about it! Maybe make an even lower-level designation
+      called "messaging"? 
 
 ## Reference
 
