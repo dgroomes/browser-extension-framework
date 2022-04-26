@@ -121,6 +121,11 @@ General clean ups, TODOs and things I wish to implement for this project:
       content script. 
 * [x] DONE Support FireFox in the example. If the example supports both Chromium and FireFox, then I can build it, verify the
       behavior in both browsers, and have confidence that the framework still works.
+* [ ] The "init" functions `initRpcBackground` and `initRpcWebPage` should be encapsulated in the `BackendWiring` and `PageWiring`
+      apis right?
+* [ ] Update the overall instructions. Especially since I started bundling the source code files into a "bundle" (because we're
+      compiling TypeScript into 'entrypoint'-like files), the instructions have gotten stale. Also the whole 'RPC sub-framework'
+      isn't really clear anymore. The 
 
 ## Reference
 
