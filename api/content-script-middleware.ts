@@ -1,10 +1,42 @@
+// This code is designed to run in a content script.
+//
+// This is middleware for BrowserExtensionFramework. Middleware is a good description for this code because content
+// scripts often metaphorically sit in-between background scripts and page scripts. Rather they sit "in the middle".
+//
+// This middleware mainly exists to proxy RPC request/response message but it also services requests from the framework
+// "backend wiring" to inject the web page with a page script.
+
 import {chrome} from "../vendor-extension-types/chrome-extension-types.d.ts";
+import {backgroundRpcClientsListener, webPageRpcClientsListener} from "../rpc/rpc-content-script-proxy.ts";
+
 export {injectInstrumentedPageScript}
 
 // Define a global "window" variable that we can use to keep track of the lifecycle.
 declare global {
     interface Window {
         injectInstrumentedPageScript_status: string
+        rpcContentScriptProxyInitialized: boolean
+    }
+}
+
+/**
+ * Initialize the proxy.
+ *
+ * 1) Messages will be received from the web extension APIs (i.e. 'chrome.runtime.onMessage')
+ * 2) Messages will be received from the web page (i.e. 'window.addEventListener')
+ *
+ * Protect against double-loading the middleware machinery if it's already been loaded by using global flags like
+ * 'contentScriptMiddlewareInitialized'
+ */
+export function initializeProxy() {
+    // Protect against double-initializing the proxy machinery by using a global flags
+    if (window.rpcContentScriptProxyInitialized === undefined) {
+        console.debug("[rpc-content-script-proxy] Loading...")
+        window.rpcContentScriptProxyInitialized = true
+        globalThis.addEventListener("message", webPageRpcClientsListener)
+        chrome.runtime.onMessage.addListener(backgroundRpcClientsListener)
+    } else {
+        console.debug("[rpc-content-script-proxy] Already loaded.")
     }
 }
 
@@ -24,12 +56,12 @@ declare global {
  *
  * @return a promise that resolves after the script has loaded and when it has signalled it is "satisfied"
  */
-function injectInstrumentedPageScript(fileName: string) : Promise<void> {
+function injectInstrumentedPageScript(fileName: string): Promise<void> {
     if (window.injectInstrumentedPageScript_status === undefined) {
-        console.debug("[content-script-wiring.js] Injecting an instrumented page script...")
+        console.debug("[content-script-middleware] Injecting an instrumented page script...")
         window.injectInstrumentedPageScript_status = "in-progress";
     } else if (window.injectInstrumentedPageScript_status === "in-progress") {
-        console.error("[content-script-wiring.js] Already loaded.");
+        console.error("[content-script-middleware] Already loaded.");
         throw new Error(`[content-script-functions.ts] The injection is in 'in-progress'. This is undefined behavior.`)
     } else if (window.injectInstrumentedPageScript_status === "satisfied") {
         // If the page script had previously been loaded and signaled "page-script-satisfied", then we can do the
@@ -49,10 +81,10 @@ function injectInstrumentedPageScript(fileName: string) : Promise<void> {
     // is helpful.
     const pageScriptSatisfied = new Promise<void>(resolve => {
         addEventListener("message", function webPageInitializedListener({data}) {
-            console.debug(`[content-script-wiring.js] Received a message on the 'window'. Here is the 'data':`);
+            console.debug(`[content-script-middleware] Received a message on the 'window'. Here is the 'data':`);
             console.debug(JSON.stringify({data}, null, 2));
             if (data === "page-script-satisfied") {
-                console.debug("[content-script-wiring.js] Sending the 'page-script-satisfied' message");
+                console.debug("[content-script-middleware] Sending the 'page-script-satisfied' message");
                 chrome.runtime.sendMessage(null, "page-script-satisfied");
 
                 resolve();

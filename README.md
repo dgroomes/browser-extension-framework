@@ -18,8 +18,9 @@ The source code layout:
       code has components that run in all contexts: background scripts, popup scripts, content scripts, and the web
       page.
     * For more information, see [RPC Framework](#rpc-framework)
-* `wiring/`
-    * Th code in this directory is the main framework code. It depends on the lower-level RPC framework.
+* `api/`
+    * The code in this directory is the public API for the framework. It exposes `BackendWiring` and `PageWiring` classes
+      which must be called by user code.
 
 ## Browser Extension Framework
 

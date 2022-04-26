@@ -6,22 +6,6 @@
 
 import {chrome} from "../vendor-extension-types/chrome-extension-types.d.ts"
 
-declare global {
-    interface Window {
-        rpcContentScriptInitialized: boolean
-    }
-}
-
-// Protect against double-loading the RPC content-script machinery if it's already been loaded.
-if (window.rpcContentScriptInitialized === undefined) {
-    console.debug("[rpc-content-script-proxy] Loading...")
-    window.rpcContentScriptInitialized = true
-    globalThis.addEventListener("message", webPageRpcClientsListener)
-    chrome.runtime.onMessage.addListener(backgroundRpcClientsListener)
-} else {
-    console.debug("[rpc-content-script-proxy] Already loaded.")
-}
-
 /**
  * Connect web page RPC clients to background RPC servers.
  *
@@ -32,7 +16,7 @@ if (window.rpcContentScriptInitialized === undefined) {
  * This is only needed for Firefox. Chromium browsers, by contrast, give the web page special access to the extension
  * messaging API thanks to the "externally_connectable" Manifest field.
  */
-function webPageRpcClientsListener({data}) {
+export function webPageRpcClientsListener({data}) {
     console.debug(`[rpc-content-script-proxy] Received a message on the 'window'. Here is the 'data':`)
     console.debug(JSON.stringify({data}, null, 2))
 
@@ -92,7 +76,7 @@ function webPageRpcClientsListener({data}) {
  * page via a window message. Then, if requested, set up another window listener to listen for the eventual return value
  * of the RPC request from the web page. Forward this to the original background RPC client.
  */
-function backgroundRpcClientsListener(message, _sender, sendResponse) {
+export function backgroundRpcClientsListener(message, _sender, sendResponse) {
     console.debug("[rpc-content-script-proxy] Received a message via the extension messaging system:")
     console.debug(JSON.stringify({message}, null, 2))
 

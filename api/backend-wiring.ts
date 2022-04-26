@@ -57,7 +57,6 @@ class BackendWiring {
  * signal.
  */
 async function executeInstrumentedContentScript(fileName) : Promise<void> {
-    await execContentScript("/rpc/rpc-content-script-proxy.js")
     console.debug(`[backend-wiring.js] Executing content script: ${fileName}`)
 
     // Set up a messaging system listener that waits for the "page-script-satisfied" signal.
@@ -87,21 +86,4 @@ async function executeInstrumentedContentScript(fileName) : Promise<void> {
     chrome.tabs.executeScript({file: fileName})
 
     await pageScriptSatisfied
-}
-
-/**
- * Execute a content script.
- *
- * @param fileName the file name of the content script
- * @return a promise that resolves when the content script has been loaded/executed(?)
- */
-function execContentScript(fileName: string) : Promise<void> {
-    console.debug(`[backend-wiring.js] Executing content script: ${fileName}`)
-    return new Promise(resolve => {
-        chrome.tabs.executeScript({
-            file: fileName
-        }, () => {
-            resolve(undefined)
-        })
-    })
 }
