@@ -1,15 +1,14 @@
 #!/usr/bin/env bash
 # Build the "Detect Code Libraries" (DCL) web extension distribution from the source code.
 #
-# Specifically, this will create the directory: "distribution/chromium-manifest-v2". The contents of this directory are
-# ready to be loaded into a Chromium browser (Chrome and Opera should work) as a web extension! See the README for
-# instructions.
+# Specifically, this will create the directories: "distribution/chromium-manifest-v2" and "firefox-manifest-v2. The
+# contents of these directories are ready to be loaded into a Chromium browser (Chrome and Opera should work) or FireFox
+# as a web extension! See the README for instructions.
 
 set -eu
 
 # Bash trick to get the directory containing the script. See https://stackoverflow.com/a/246128
 project_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-extension_sources=(chromium-manifest-v2 firefox-manifest-v2)
 
 preconditions() {
   if ! which deno &> /dev/null; then
@@ -18,14 +17,17 @@ preconditions() {
   fi
 }
 
-# Delegate to the "deno bundle ..." command
-deno_bundle() {
-  deno bundle --quiet --config ../deno.json "${@}"
-}
-
 build_distribution() {
-  local extension_source="$1"
-  local output_dir="$project_dir/distribution/${extension_source}"
+  local vendor_dir_name="$1"
+  local import_map="$2"
+
+  local output_dir="$project_dir/distribution/${vendor_dir_name}"
+
+  # Delegate to the "deno bundle ..." command
+  deno_bundle() {
+    deno bundle --quiet --config ../deno.json --import-map "$import_map" "${@}"
+  }
+
 
   # Delete the build directory and everything inside of it if it already exists and then create it again.
   mkdir -p "$output_dir"
@@ -33,11 +35,10 @@ build_distribution() {
   mkdir -p "$output_dir"
 
   # Copy over non-TypeScript files
-  cp "$project_dir/src/$extension_source/manifest.json" "$output_dir"
+  cp "$project_dir/src/$vendor_dir_name/manifest.json" "$output_dir"
   cp "$project_dir/src/dcl-popup.html" "$output_dir"
 
   # Compile ("bundle") the TypeScript entrypoint-type files into JavaScript
-  deno_bundle "$project_dir/src/$extension_source/dcl-init.ts" "$output_dir/dcl-init.js"
   deno_bundle "$project_dir/src/dcl-popup-script.ts" "$output_dir/dcl-popup-script.js"
   deno_bundle "$project_dir/src/dcl-content-script.ts" "$output_dir/dcl-content-script.js"
   deno_bundle "$project_dir/src/dcl-page-script.ts" "$output_dir/dcl-page-script.js"
@@ -49,25 +50,10 @@ build_all() {
     echo "Building..."
     local build_status=0
 
-    # Allow failures (set +e). It's expected that the build will often fail because as new code is written it won't
-    # compile.
-    set +e
-    for extension_source in "${extension_sources[@]}"; do
-      if ! build_distribution "$extension_source"; then
-        # If the vendor-specific build failed (Chromium or FireFox) break now and don't bother building the other
-        # vendor-specific distribution.
-        build_status=1
-        break
-      fi
-    done
-    # Disallow failures again. If there is an exception, that's unexpected and should terminate the script.
-    set -e
+    build_distribution "chromium-manifest-v2" "../import_map.json"
+    build_distribution "firefox-manifest-v2" "../vendor/firefox_import_map.json"
 
-    if [[ $build_status = 0 ]]; then
-      echo "Distributions built! ✅"
-    else
-      echo >&2 "Build failed ❌"
-    fi
+    echo "Distributions built! ✅"
 }
 
 preconditions

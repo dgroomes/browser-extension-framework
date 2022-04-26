@@ -8,8 +8,8 @@
 
 The source code layout:
 
-* `vendor-extension-types/`
-    * TypeScript type declaration files for browser (vendor) JavaScript APIs. This means there are `.d.ts` files for
+* `vendor/`
+    * Vendor-specific code. TypeScript type declaration files for browser (vendor) JavaScript APIs. This means there are `.d.ts` files for
       Chromium's `chrome` JavaScript APIs and FireFox's `browser` JavaScript APIs. Yes there is probably an open source
       version of this but I would prefer to minimize third-party dependencies where feasible (Update: I'm happy to depend
       on first-party libraries from, for example, Mozilla. I think they have a nice polyfill).
@@ -96,10 +96,8 @@ extension and web page contexts:
       accessible. The `manifest.json` file must allow access to the RPC JavaScript source code files as needed.
       Specifically, `rpc.js`, and `rpc-backend.js` must be added to the background scripts and `rpc.js`
       and `rpc-web-page.js` must be added to the web page.
-1. Initialize configuration in the background
-    * The background script must invoke `initRpcBackground(...)`
-1. Load the content scripts
-    * The content script `rpc-content-script-proxy.js` must be executed.
+1. Initialize the content script proxy
+    * The initializer function `initializeProxy` in `content-script-middleware.ts` must be executed.
 1. Initialize objects in the web page
     * The web page must initialize the RPC objects on the web page by calling `initRpcWebPage(...)`
 
@@ -125,7 +123,14 @@ General clean ups, TODOs and things I wish to implement for this project:
       apis right?
 * [ ] Update the overall instructions. Especially since I started bundling the source code files into a "bundle" (because we're
       compiling TypeScript into 'entrypoint'-like files), the instructions have gotten stale. Also the whole 'RPC sub-framework'
-      isn't really clear anymore. The 
+      isn't really clear anymore.
+* [x] DONE Are [import maps](https://deno.land/manual@v1.21.0/linking_to_external_code/import_maps) going to save me from the
+      awkward "installation-time" setter of the "browser descriptor? (e.g. 'chrome' of 'firefox')" and can it also be
+      used for much more? Can I (should I) bundle only the Chromium-specific classes in the Chrome bundle? Also, this
+      frees the architecture to not even use a class-oriented design. There's no need for dynamic dispatch if we can just
+      get "vendor-specific dispatch" at build-time.
+* [ ] Use import-maps to eliminate all instances of the "browserDescriptor" check. This is probably an abuse of import maps.
+      I wish Node had better multi-module setups. I don't really want to use Lerna because it's third party.
 
 ## Reference
 

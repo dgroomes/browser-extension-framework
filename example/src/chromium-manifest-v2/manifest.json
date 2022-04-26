@@ -3,12 +3,6 @@
   "description": "Detect Code Libraries: an example web extension that detects JavaScript libraries",
   "version": "0.1",
   "manifest_version": 2,
-  "background": {
-    "scripts": [
-      "dcl-init.js"
-    ],
-    "persistent": false
-  },
   "permissions": [
     "activeTab",
     "declarativeContent",

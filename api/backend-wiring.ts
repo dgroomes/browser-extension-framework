@@ -1,4 +1,4 @@
-import {chrome} from "../vendor-extension-types/chrome-extension-types.d.ts"
+import {chrome} from "../vendor/chrome-extension-types.d.ts"
 import {RpcClient, RpcServer} from "../rpc/rpc.ts";
 import {getRpcClient, getRpcServer} from "../rpc/rpc-backend.ts";
 export {BackendWiring}
@@ -27,7 +27,7 @@ class BackendWiring {
      */
     static async initialize(contentScriptFileName: string) : Promise<BackendWiring> {
         const rpcClient = await getRpcClient();
-        const rpcServer = await getRpcServer();
+        const rpcServer = getRpcServer();
         return new BackendWiring(contentScriptFileName, rpcClient, rpcServer);
     }
 

@@ -4,7 +4,7 @@
 // each other. Remember, a browser extension architecture is made up of a combination of these JavaScript execution
 // environments: web pages, background scripts, content scripts and extension popup pages.
 
-import {chrome} from "../vendor-extension-types/chrome-extension-types.d.ts"
+import {chrome} from "../vendor/chrome-extension-types.d.ts"
 
 /**
  * Connect web page RPC clients to background RPC servers.

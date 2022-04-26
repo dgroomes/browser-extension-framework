@@ -1,33 +1,24 @@
 // This code is designed to run in background scripts.
 
-import {chrome, Tab} from "../vendor-extension-types/chrome-extension-types.d.ts"
-import {browser} from "../vendor-extension-types/firefox-extension-types.d.ts"
+import {chrome, Tab} from "../vendor/chrome-extension-types.d.ts"
+import {browser} from "../vendor/firefox-extension-types.d.ts"
 import {RpcClient, RpcServer} from "./rpc.ts"
+import {browserDescriptor} from "browser-constants";
 
-export {initRpcBackground, getRpcServer, getRpcClient}
-
-/**
- * Initialize the configuration for the RPC framework. This must always be executed before any other work is done.
- *
- * @param browserDescriptor either "chromium" or "firefox"
- * @return {Promise} a promise that returns when the initialization work is done.
- */
-function initRpcBackground(browserDescriptor) {
-    return setBrowserDescriptor(browserDescriptor)
-}
+export {getRpcServer, getRpcClient}
 
 let _rpcServer: RpcServer
 
 /**
  * Instantiate a background RPC server.
  */
-async function getRpcServer() : Promise<RpcServer> {
+function getRpcServer() : RpcServer {
     if (_rpcServer instanceof RpcServer) return _rpcServer
 
-    const browserDescriptor = await getBrowserDescriptor()
-
+    // @ts-ignore the constant value 'browserDescriptor' is import-mapped differently for chromium vs firefox.
     if (browserDescriptor === "chromium") {
         _rpcServer = new ChromiumBackgroundRpcServer()
+    // @ts-ignore the constant value 'browserDescriptor' is import-mapped differently for chromium vs firefox.
     } else if (browserDescriptor === "firefox") {
         _rpcServer = new FirefoxBackgroundRpcServer()
     } else {
@@ -38,51 +29,6 @@ async function getRpcServer() : Promise<RpcServer> {
 }
 
 let _rpcClient : RpcClient
-
-// Cache a copy of the browserDescriptor. The value of the browser descriptor will never change because of course the
-// browser can't change. If we are in Firefox, then we are Firefox. The browser descriptor will always be "firefox" so
-// we might as well cache the value.
-let _browserDescriptor = null
-
-/**
- * Get the browser descriptor from storage.
- *
- * @return {Promise<String>} the browser descriptor. The value is either "chromium" of "firefox"
- */
-function getBrowserDescriptor() {
-    if (_browserDescriptor !== null) return _browserDescriptor
-    return new Promise((resolve, reject) => {
-        // deno-lint-ignore no-explicit-any
-        chrome.storage.local.get<any>("rpcBrowserDescriptor", (found) => {
-            console.log(`[rpc-backend.js] Found rpcBrowserDescriptor: ${JSON.stringify(found, null, 2)}`)
-            _browserDescriptor = found.rpcBrowserDescriptor
-            if (typeof _browserDescriptor === "undefined") {
-                reject()
-                const msg = "[rpc-backend.js] 'rpcBrowserDescriptor' not found. The RPC framework must not have been initialized. Call the 'init(...)' function first."
-                console.error(msg)
-                throw Error(msg)
-            }
-            resolve(_browserDescriptor)
-        })
-    })
-}
-
-/**
- * Set the browser descriptor to storage
- *
- * @param {String} browserDescriptor
- * @return {Promise} a promise that resolves when the value has been saved.
- */
-function setBrowserDescriptor(browserDescriptor) {
-    _browserDescriptor = browserDescriptor
-    return new Promise(resolve => {
-        chrome.storage.local.set({
-            rpcBrowserDescriptor: browserDescriptor
-        }, () => {
-            resolve("success_ignored_value")
-        })
-    })
-}
 
 /**
  * Instantiate a background RPC client instance to make requests to the web page.
@@ -101,10 +47,10 @@ async function getRpcClient() {
         })
     })
 
-    const browserDescriptor = await getBrowserDescriptor()
-
+    // @ts-ignore the constant value 'browserDescriptor' is import-mapped differently for chromium vs firefox.
     if (browserDescriptor === "chromium") {
         _rpcClient = new ChromiumBackgroundToContentScriptRpcClient(activeTab.id)
+    // @ts-ignore the constant value 'browserDescriptor' is import-mapped differently for chromium vs firefox.
     } else if (browserDescriptor === "firefox") {
         _rpcClient = new FirefoxBackgroundToContentScriptRpcClient(activeTab.id)
     } else {
