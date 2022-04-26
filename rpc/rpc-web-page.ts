@@ -106,7 +106,7 @@ class FirefoxWebPageRpcServer extends RpcServer {
             const {procedureName} = data
             // Send the procedure return value to the RPC client by way of the RPC proxy.
             const returnMessage = {
-                procedureTargetReceiver: "content-script-rpc-proxy",
+                procedureTargetReceiver: "rpc-content-script-proxy",
                 procedureName,
                 procedureReturnValue
             }
@@ -158,7 +158,7 @@ class FirefoxWebPageToContentScriptRpcClient extends RpcClient {
     #webExtensionId
 
     constructor(webExtensionId) {
-        super("content-script-rpc-proxy")
+        super("rpc-content-script-proxy")
         this.#webExtensionId = webExtensionId
     }
 
@@ -167,7 +167,7 @@ class FirefoxWebPageToContentScriptRpcClient extends RpcClient {
      * extension API to make a one-for-one request/response procedure call. Honestly, the implementation seems a little
      * strange but it makes for a great API to the calling code. I think this is an effective pattern.
      *
-     * This function will send a message to the content-script RPC proxy ("rpc-content-script.js") and then
+     * This function will send a message to the RPC content script proxy and then
      * register a listener on the window to listen for the eventual expected response message.
      */
     execRemoteProcedure<T,R>(procedureName, procedureArgs: T) : Promise<R> {

@@ -170,7 +170,7 @@ class ChromiumBackgroundToContentScriptRpcClient extends RpcClient {
     readonly #tabId
 
     constructor(tabId) {
-        super("content-script-rpc-proxy")
+        super("rpc-content-script-proxy")
         this.#tabId = tabId
     }
 
@@ -203,7 +203,7 @@ class FirefoxBackgroundToContentScriptRpcClient extends RpcClient {
     readonly #tabId
 
     constructor(tabId: number) {
-        super("content-script-rpc-proxy")
+        super("rpc-content-script-proxy")
         this.#tabId = tabId
     }
 

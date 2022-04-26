@@ -42,7 +42,7 @@ build_distribution() {
   deno_bundle "$project_dir/src/dcl-content-script.ts" "$output_dir/dcl-content-script.js"
   deno_bundle "$project_dir/src/dcl-page-script.ts" "$output_dir/dcl-page-script.js"
   mkdir "$output_dir/rpc"
-  deno_bundle "$project_dir/../rpc/rpc-content-script.ts" "$output_dir/rpc/rpc-content-script.js"
+  deno_bundle "$project_dir/../rpc/rpc-content-script-proxy.ts" "$output_dir/rpc/rpc-content-script-proxy.js"
 }
 
 build_all() {

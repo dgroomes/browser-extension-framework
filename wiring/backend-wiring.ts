@@ -57,7 +57,7 @@ class BackendWiring {
  * signal.
  */
 async function executeInstrumentedContentScript(fileName) : Promise<void> {
-    await execContentScript("/rpc/rpc-content-script.js")
+    await execContentScript("/rpc/rpc-content-script-proxy.js")
     console.debug(`[backend-wiring.js] Executing content script: ${fileName}`)
 
     // Set up a messaging system listener that waits for the "page-script-satisfied" signal.

@@ -98,7 +98,7 @@ extension and web page contexts:
 1. Initialize configuration in the background
     * The background script must invoke `initRpcBackground(...)`
 1. Load the content scripts
-    * The content script `rpc-content-script.js` must be executed.
+    * The content script `rpc-content-script-proxy.js` must be executed.
 1. Initialize objects in the web page
     * The web page must initialize the RPC objects on the web page by calling `initRpcWebPage(...)`
 
