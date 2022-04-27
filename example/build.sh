@@ -51,9 +51,9 @@ build_all() {
     local build_status=0
 
     build_distribution "chromium-manifest-v2" "../import_map.json"
-    build_distribution "firefox-manifest-v2" "../vendor/firefox_import_map.json"
-
-    echo "Distributions built! ✅"
+    echo "Chromium distribution built! ✅"
+    build_distribution "firefox-manifest-v2" "../firefox_import_map.json"
+    echo "FireFox distribution built! ✅"
 }
 
 preconditions

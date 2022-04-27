@@ -6,7 +6,7 @@
 // This middleware mainly exists to proxy RPC request/response message but it also services requests from the framework
 // "backend wiring" to inject the web page with a page script.
 
-import {chrome} from "../vendor/chrome-extension-types.d.ts";
+import {chrome} from "/vendor/chrome-extension-types.d.ts";
 import {backgroundRpcClientsListener, webPageRpcClientsListener} from "../rpc/rpc-content-script-proxy.ts";
 
 export {injectInstrumentedPageScript}

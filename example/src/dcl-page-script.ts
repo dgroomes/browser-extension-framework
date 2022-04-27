@@ -1,4 +1,4 @@
-import {PageWiring} from "../../api/page-wiring.ts";
+import {PageWiring} from "@bfe/page-wiring";
 
 console.debug("[dcl-page-script.js] Initializing...");
 const pageWiring = PageWiring.initialize();

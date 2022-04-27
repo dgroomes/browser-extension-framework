@@ -1,7 +1,7 @@
 // This is a component of BrowserExtensionFramework.
 
-import {initRpcWebPage} from "../rpc/rpc-web-page.ts";
-import {RpcClient, RpcServer} from "../rpc/rpc.ts";
+import {initRpcWebPage} from "/rpc/rpc-web-page.ts";
+import {RpcClient, RpcServer} from "/rpc/rpc.ts";
 
 export {PageWiring}
 

@@ -3,7 +3,7 @@
     "@bfe/backend-wiring": "./api/backend-wiring.ts",
     "@bfe/page-wiring": "./api/page-wiring.ts",
     "@bfe/content-script-middleware": "./api/content-script-middleware.ts",
-    "/vendor/browser-constants": "./vendor/chromium-constants.ts",
+    "/vendor/browser-constants": "./vendor/firefox-constants.ts",
     "/": "./",
     "./": "./"
   }

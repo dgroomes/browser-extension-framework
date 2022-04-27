@@ -1,4 +1,4 @@
-import {injectInstrumentedPageScript, initializeProxy} from "../../api/content-script-middleware.ts";
+import {injectInstrumentedPageScript, initializeProxy} from "@bfe/content-script-middleware";
 
 const pageScript = "dcl-page-script.js";
 initializeProxy()

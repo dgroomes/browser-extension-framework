@@ -1,6 +1,6 @@
-import {chrome} from "../vendor/chrome-extension-types.d.ts"
-import {RpcClient, RpcServer} from "../rpc/rpc.ts";
-import {getRpcClient, getRpcServer} from "../rpc/rpc-backend.ts";
+import {chrome} from "/vendor/chrome-extension-types.d.ts"
+import {RpcClient, RpcServer} from "/rpc/rpc.ts";
+import {getRpcClient, getRpcServer} from "/rpc/rpc-backend.ts";
 export {BackendWiring}
 
 /**
