@@ -17,21 +17,14 @@ browsers with minimal changes.
 Now, consider how the detection feature must be implemented. JavaScript must be injected into the web page so that it
 may look for global variables like `jQuery` or `Vue`. Injecting JavaScript code into the web page can only be done
 from a content script. And injecting a content script must be done from a background or popup script! Phew, that's a lot
-of JavaScript execution environments. Keep in mind these components:
+of JavaScript execution environments. The programmer must implement these components:
 
-1) The DCL popup script
+1. The DCL popup script
     * `dcl-popup-script.js`
-2) The DCL content script
-    * `dcl-content-script.js`
-3) The DCL web page script
+1. The DCL web page script
     * `dcl-page-script.js`
 
-The programmer must write each of these files. It is not possible for BrowserExtensionFramework to abstract away
-`dcl-content-script.js` or `dcl-page-script.js`. Abstracting away those files would require dynamic JavaScript,
-serializing/deserializing JavaScript code, and using `eval()`, which we are not willing to do.
-
-So, the API of BrowserExtensionFramework requires the programmer to still write all of these files but offers functions to
-reduce the boilerplate and handle message passing and lifecycle timing.
+BrowserExtensionFramework is able to abstract away the content script. 
 
 
 ## Instructions

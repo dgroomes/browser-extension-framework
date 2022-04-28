@@ -114,7 +114,7 @@ General clean ups, TODOs and things I wish to implement for this project:
       example extension and I was confused). 
 * [ ] Fix the double loading problem. This is all over the place. It double loads the source code when you click the
       extension browser action. It makes for an unusable experience except in the very narrow happy path.
-* [ ] Consider abstracting away the required content script "thin bootstrap" files. For example, `dcl-content-script.ts`
+* [X] DONE Consider abstracting away the required content script "thin bootstrap" files. For example, `dcl-content-script.ts`
       shouldn't have to exist. I thought it did earlier, but it's not needed. It can be replaced with a generic middleware
       content script. 
 * [x] DONE Support FireFox in the example. If the example supports both Chromium and FireFox, then I can build it, verify the
@@ -129,8 +129,17 @@ General clean ups, TODOs and things I wish to implement for this project:
       used for much more? Can I (should I) bundle only the Chromium-specific classes in the Chrome bundle? Also, this
       frees the architecture to not even use a class-oriented design. There's no need for dynamic dispatch if we can just
       get "vendor-specific dispatch" at build-time.
-* [ ] Use import-maps to eliminate all instances of the "browserDescriptor" check. This is probably an abuse of import maps.
-      I wish Node had better multi-module setups. I don't really want to use Lerna because it's third party.
+* [ ] Only use import-maps for convenience `/` root imports instead of relative imports. Stop using import maps for differentiating
+      between Chromium/Firefox things. When it comes to publishing this library, I don't want to publish a FireFox artifact
+      separately from a Chromium one. Node tooling is not equipped for consuming multi-flavor artifacts.
+* [ ] Extract the `api/` components into TypeScript interfaces so that the total amount of code presented to end-users
+      is as small as feasible. By contrast, presenting the whole `backend-wiring.ts` file to end-users is too much. The
+      public functions are `BackendWiring.initialize` and `BackendWiring.injectInstrumentedPageScript`. I don't want
+      end-users to have to see the function bodies when browsing the API. Maybe move the implementation details into an
+      `impl/` or `wiring/` directory (it doesn't really matter where).
+* [ ] Debugging in FireFox is broken for me on my mac. I can't get it to show logs or sources, even when I try an official
+      extension example like 'beastify'. It does not work like the [Extension workshop docs](https://extensionworkshop.com/documentation/develop/debugging/#debugging-popups)
+      say it should. I need to try on my Windows computer.
 
 ## Reference
 

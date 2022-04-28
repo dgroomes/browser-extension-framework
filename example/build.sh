@@ -40,10 +40,9 @@ build_distribution() {
 
   # Compile ("bundle") the TypeScript entrypoint-type files into JavaScript
   deno_bundle "$project_dir/src/dcl-popup-script.ts" "$output_dir/dcl-popup-script.js"
-  deno_bundle "$project_dir/src/dcl-content-script.ts" "$output_dir/dcl-content-script.js"
   deno_bundle "$project_dir/src/dcl-page-script.ts" "$output_dir/dcl-page-script.js"
   mkdir "$output_dir/rpc"
-  deno_bundle "$project_dir/../rpc/rpc-content-script-proxy.ts" "$output_dir/rpc/rpc-content-script-proxy.js"
+  deno_bundle "$project_dir/../content-script-middleware.ts" "$output_dir/content-script-middleware.js"
 }
 
 build_all() {

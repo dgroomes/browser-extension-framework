@@ -34,4 +34,5 @@ function detectCodeLibraries() : Promise<string> {
 }
 
 pageWiring.satisfied();
+
 console.log("[dcl-page-script.ts] Initialized.");
