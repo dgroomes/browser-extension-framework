@@ -107,44 +107,47 @@ extension and web page contexts:
 
 General clean ups, TODOs and things I wish to implement for this project:
 
-* [x] DONE Add an example web extension
-* [x] DONE re-organize the directory layout. There's no need for a "browser-extension-framework/" directory. Too
-      verbose.
 * [ ] Consider publishing to Deno or NPM. Consider publishing the compiled JavaScript.
 * [ ] Runtime check the "externally_accessible" configuration list (I assume that's possible but I wouldn't be surprised if
       it wasn't) and warn if the current web page is not in the list. (This was the problem I had when I developed the
       example extension and I was confused). 
 * [ ] Fix the double loading problem. This is all over the place. It double loads the source code when you click the
       extension browser action. It makes for an unusable experience except in the very narrow happy path.
-* [X] DONE Consider abstracting away the required content script "thin bootstrap" files. For example, `dcl-content-script.ts`
-      shouldn't have to exist. I thought it did earlier, but it's not needed. It can be replaced with a generic middleware
-      content script. 
-* [x] DONE Support FireFox in the example. If the example supports both Chromium and FireFox, then I can build it, verify the
-      behavior in both browsers, and have confidence that the framework still works.
 * [ ] The "init" functions `initRpcBackground` and `initRpcWebPage` should be encapsulated in the `BackendWiring` and `PageWiring`
       apis right?
 * [ ] Update the overall instructions. Especially since I started bundling the source code files into a "bundle" (because we're
       compiling TypeScript into 'entrypoint'-like files), the instructions have gotten stale. Also the whole 'RPC sub-framework'
       isn't really clear anymore.
-* [x] DONE Are [import maps](https://deno.land/manual@v1.21.0/linking_to_external_code/import_maps) going to save me from the
-      awkward "installation-time" setter of the "browser descriptor? (e.g. 'chrome' of 'firefox')" and can it also be
-      used for much more? Can I (should I) bundle only the Chromium-specific classes in the Chrome bundle? Also, this
-      frees the architecture to not even use a class-oriented design. There's no need for dynamic dispatch if we can just
-      get "vendor-specific dispatch" at build-time.
 * [ ] Only use import-maps for convenience `/` root imports instead of relative imports. Stop using import maps for differentiating
       between Chromium/Firefox things. When it comes to publishing this library, I don't want to publish a FireFox artifact
       separately from a Chromium one. Node tooling is not equipped for consuming multi-flavor artifacts.
-* [x] DONE Extract the `api/` components into TypeScript interfaces so that the total amount of code presented to end-users
-      is as small as feasible. By contrast, presenting the whole `backend-wiring.ts` file to end-users is too much. The
-      public functions are `BackendWiring.initialize` and `BackendWiring.injectInstrumentedPageScript`. I don't want
-      end-users to have to see the function bodies when browsing the API. Maybe move the implementation details into an
-      `impl/` or `wiring/` directory (it doesn't really matter where).
 * [ ] Debugging in FireFox is broken for me on my mac. I can't get it to show logs or sources, even when I try an official
       extension example like 'beastify'. It does not work like the [Extension workshop docs](https://extensionworkshop.com/documentation/develop/debugging/#debugging-popups)
       say it should. I need to try on my Windows computer.
 * [ ] Remove Deno for NPM and Webpack. It was a rewarding experience and a quick start. But I need to understand a build
       a prototypical library and user/developer experience. There are so many quirks of browser-based JS modules that I
       can't afford to stray from mainstream.
+
+Finished items:
+
+* [x] DONE Add an example web extension
+* [x] DONE re-organize the directory layout. There's no need for a "browser-extension-framework/" directory. Too
+  verbose.
+* [X] DONE Consider abstracting away the required content script "thin bootstrap" files. For example, `dcl-content-script.ts`
+  shouldn't have to exist. I thought it did earlier, but it's not needed. It can be replaced with a generic middleware
+  content script.
+* [x] DONE Support FireFox in the example. If the example supports both Chromium and FireFox, then I can build it, verify the
+  behavior in both browsers, and have confidence that the framework still works.
+* [x] DONE Are [import maps](https://deno.land/manual@v1.21.0/linking_to_external_code/import_maps) going to save me from the
+  awkward "installation-time" setter of the "browser descriptor? (e.g. 'chrome' of 'firefox')" and can it also be
+  used for much more? Can I (should I) bundle only the Chromium-specific classes in the Chrome bundle? Also, this
+  frees the architecture to not even use a class-oriented design. There's no need for dynamic dispatch if we can just
+  get "vendor-specific dispatch" at build-time.
+* [x] DONE Extract the `api/` components into TypeScript interfaces so that the total amount of code presented to end-users
+  is as small as feasible. By contrast, presenting the whole `backend-wiring.ts` file to end-users is too much. The
+  public functions are `BackendWiring.initialize` and `BackendWiring.injectInstrumentedPageScript`. I don't want
+  end-users to have to see the function bodies when browsing the API. Maybe move the implementation details into an
+  `impl/` or `wiring/` directory (it doesn't really matter where).
 
 ## Reference
 
