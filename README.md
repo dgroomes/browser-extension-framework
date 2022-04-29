@@ -1,13 +1,18 @@
 # browser-extension-framework
 
-🛠 BrowserExtensionFramework is an RPC-centric framework for browser extensions (sometimes called web extensions).
-
-**NOTE**: This project was developed on macOS. It is for my own personal use.
+🛠 BrowserExtensionFramework is a zero-dependency RPC-centric framework for browser extensions (sometimes called web extensions).
 
 ## Design
 
+**NOTE**: This project was developed on macOS. It is for my own personal use.
+
 The source code layout:
 
+* `api/`
+    * The code in this directory is the public API for the framework. It exposes `BackendWiring` and `PageWiring` classes
+      which must be called by user code.
+* `impl/`
+    * Various implementation code. 
 * `vendor/`
     * Vendor-specific code. TypeScript type declaration files for browser (vendor) JavaScript APIs. This means there are `.d.ts` files for
       Chromium's `chrome` JavaScript APIs and FireFox's `browser` JavaScript APIs. Yes there is probably an open source
@@ -18,9 +23,6 @@ The source code layout:
       code has components that run in all contexts: background scripts, popup scripts, content scripts, and the web
       page.
     * For more information, see [RPC Framework](#rpc-framework)
-* `api/`
-    * The code in this directory is the public API for the framework. It exposes `BackendWiring` and `PageWiring` classes
-      which must be called by user code.
 
 ## Browser Extension Framework
 
@@ -132,7 +134,7 @@ General clean ups, TODOs and things I wish to implement for this project:
 * [ ] Only use import-maps for convenience `/` root imports instead of relative imports. Stop using import maps for differentiating
       between Chromium/Firefox things. When it comes to publishing this library, I don't want to publish a FireFox artifact
       separately from a Chromium one. Node tooling is not equipped for consuming multi-flavor artifacts.
-* [ ] Extract the `api/` components into TypeScript interfaces so that the total amount of code presented to end-users
+* [x] DONE Extract the `api/` components into TypeScript interfaces so that the total amount of code presented to end-users
       is as small as feasible. By contrast, presenting the whole `backend-wiring.ts` file to end-users is too much. The
       public functions are `BackendWiring.initialize` and `BackendWiring.injectInstrumentedPageScript`. I don't want
       end-users to have to see the function bodies when browsing the API. Maybe move the implementation details into an
@@ -140,6 +142,9 @@ General clean ups, TODOs and things I wish to implement for this project:
 * [ ] Debugging in FireFox is broken for me on my mac. I can't get it to show logs or sources, even when I try an official
       extension example like 'beastify'. It does not work like the [Extension workshop docs](https://extensionworkshop.com/documentation/develop/debugging/#debugging-popups)
       say it should. I need to try on my Windows computer.
+* [ ] Remove Deno for NPM and Webpack. It was a rewarding experience and a quick start. But I need to understand a build
+      a prototypical library and user/developer experience. There are so many quirks of browser-based JS modules that I
+      can't afford to stray from mainstream.
 
 ## Reference
 
