@@ -17,17 +17,14 @@ preconditions() {
   fi
 }
 
+# Delegate to the "deno bundle ..." command
+deno_bundle() {
+  deno bundle --quiet --config ../deno.json "${@}"
+}
+
 build_distribution() {
   local vendor_dir_name="$1"
-  local import_map="$2"
-
   local output_dir="$project_dir/distribution/${vendor_dir_name}"
-
-  # Delegate to the "deno bundle ..." command
-  deno_bundle() {
-    deno bundle --quiet --config ../deno.json --import-map "$import_map" "${@}"
-  }
-
 
   # Delete the build directory and everything inside of it if it already exists and then create it again.
   mkdir -p "$output_dir"
@@ -49,9 +46,9 @@ build_all() {
     echo "Building..."
     local build_status=0
 
-    build_distribution "chromium-manifest-v2" "../import_map.json"
+    build_distribution "chromium-manifest-v2"
     echo "Chromium distribution built! ✅"
-    build_distribution "firefox-manifest-v2" "../firefox_import_map.json"
+    build_distribution "firefox-manifest-v2"
     echo "FireFox distribution built! ✅"
 }
 

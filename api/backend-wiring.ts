@@ -1,5 +1,5 @@
-import {BackendWiringImpl} from "/impl/backend-wiring-impl.ts";
-import {RpcClient, RpcServer} from "/rpc/rpc.ts";
+import {BackendWiringImpl} from "../impl/backend-wiring-impl.ts";
+import {RpcClient, RpcServer} from "../rpc/rpc.ts";
 import {BrowserDescriptor} from "../browserDescriptor.ts";
 
 export {BackendWiring}

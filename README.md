@@ -118,7 +118,7 @@ General clean ups, TODOs and things I wish to implement for this project:
 * [ ] Update the overall instructions. Especially since I started bundling the source code files into a "bundle" (because we're
       compiling TypeScript into 'entrypoint'-like files), the instructions have gotten stale. Also the whole 'RPC sub-framework'
       isn't really clear anymore.
-* [ ] IN PROGRESS Stop using import maps for differentiating between Chromium/Firefox things. When it comes to publishing
+* [x] DONE Stop using import maps for differentiating between Chromium/Firefox things. When it comes to publishing
       this library, I don't want to publish a FireFox artifact separately from a Chromium one. Node tooling is not equipped
       for consuming multi-flavor artifacts.
 * [ ] Debugging in FireFox is broken for me on my mac. I can't get it to show logs or sources, even when I try an official

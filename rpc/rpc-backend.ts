@@ -1,7 +1,7 @@
 // This code is designed to run in background scripts.
 
-import {chrome, Tab} from "/vendor/chrome-extension-types.d.ts"
-import {browser} from "/vendor/firefox-extension-types.d.ts"
+import {chrome, Tab} from "../vendor/chrome-extension-types.d.ts"
+import {browser} from "../vendor/firefox-extension-types.d.ts"
 import {RpcClient, RpcServer} from "./rpc.ts"
 import {BrowserDescriptor, getBrowserDescriptor} from "../browserDescriptor.ts";
 

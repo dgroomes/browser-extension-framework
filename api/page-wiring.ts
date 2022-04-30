@@ -1,5 +1,5 @@
-import {RpcClient, RpcServer} from "/rpc/rpc.ts";
-import {PageWiringImpl} from "/impl/page-wiring-impl.ts";
+import {RpcClient, RpcServer} from "../rpc/rpc.ts";
+import {PageWiringImpl} from "../impl/page-wiring-impl.ts";
 
 export {PageWiring}
 
