@@ -31,12 +31,8 @@ BrowserExtensionFramework is able to abstract away the content script.
 
 Follow these instructions to install the tool as a Chrome browser extension and use it:
 
-1. Install Deno
-    * <https://deno.land>
-    * > A modern runtime for JavaScript and TypeScript.
-1. Build the extension distribution:
+1. Build the extension distributions:
     * `./build.sh`
-    * This will take 20+ seconds. Deno is working hard to type check the TypeScript code.
 1. Open Chrome's extension settings page
     * Open Chrome to the URL: `chrome://extensions`
     * Alternatively, follow the instructions in the [Firefox](#firefox) section below to install the extension in

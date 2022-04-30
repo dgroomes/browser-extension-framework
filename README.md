@@ -15,7 +15,7 @@ The source code layout:
     * Various implementation code. 
 * `vendor/`
     * Vendor-specific code. TypeScript type declaration files for browser (vendor) JavaScript APIs. This means there are `.d.ts` files for
-      Chromium's `chrome` JavaScript APIs and FireFox's `browser` JavaScript APIs. Yes there is probably an open source
+      Chromium's `chrome` JavaScript APIs and Firefox's `browser` JavaScript APIs. Yes there is probably an open source
       version of this but I would prefer to minimize third-party dependencies where feasible (Update: I'm happy to depend
       on first-party libraries from, for example, Mozilla. I think they have a nice polyfill).
 * `rpc/`
@@ -72,14 +72,14 @@ necessity.
 
 The source code is laid out in a file structure that groups code by the execution context that the code runs in:
 
-* `rpc/rpc.js`
+* `rpc/rpc.ts`
     * The code in this file is foundational common code for the RPC framework. It is used in all contexts of a web
       extension: background scripts, popup scripts, content scripts, and the web page.
-* `rpc/rpc-web-page.js`
+* `rpc/rpc-web-page.ts`
     * The code in this file runs on the web page.
-* `rpc/rpc-backend.js/`
+* `rpc/rpc-backend.ts/`
     * The code in this file runs in the extension *backend* contexts: background workers, popups, and content scripts.
-* `rpc/content-script.js`
+* `rpc/content-script-proxy.ts`
     * The code in this file runs in a content script.
 
 One thing I'm omitting with the RPC implementation is an "absolute unique identifier" to associate with each message.
@@ -103,11 +103,30 @@ extension and web page contexts:
 1. Initialize objects in the web page
     * The web page must initialize the RPC objects on the web page by calling `initRpcWebPage(...)`
 
+## Development Instructions
+
+Follow these instructions to build BrowserExtensionFramework:
+
+1. Install dependencies
+   * ```shell
+     npm install
+     ```
+2. Build the library distributions:
+   * ```shell
+     npm run build
+     ```
+   * Notice that this builds builds *distributions* (plural!) not just a single distribution. Most libraries will publish
+     a main artifact, but BrowserExtensionFramework needs to publish three equally important artifacts. There is an artifact
+     for each JavaScript execution environment in a browser extension architecture: 1) backend 2) content script and 3)
+     web page. 
+
 ## Wish List
 
 General clean ups, TODOs and things I wish to implement for this project:
 
-* [ ] Consider publishing to Deno or NPM. Consider publishing the compiled JavaScript.
+* [ ] Consider publishing to NPM. Publishing the compiled JavaScript and the TypeScript declaration files. A useful step
+      to do before this would be to publish the distribution locally and consume it from the 'Detect Code Libraries' example
+      project.
 * [ ] Runtime check the "externally_accessible" configuration list (I assume that's possible but I wouldn't be surprised if
       it wasn't) and warn if the current web page is not in the list. (This was the problem I had when I developed the
       example extension and I was confused). 
@@ -119,12 +138,12 @@ General clean ups, TODOs and things I wish to implement for this project:
       compiling TypeScript into 'entrypoint'-like files), the instructions have gotten stale. Also the whole 'RPC sub-framework'
       isn't really clear anymore.
 * [x] DONE Stop using import maps for differentiating between Chromium/Firefox things. When it comes to publishing
-      this library, I don't want to publish a FireFox artifact separately from a Chromium one. Node tooling is not equipped
+      this library, I don't want to publish a Firefox artifact separately from a Chromium one. Node tooling is not equipped
       for consuming multi-flavor artifacts.
-* [ ] Debugging in FireFox is broken for me on my mac. I can't get it to show logs or sources, even when I try an official
+* [ ] Debugging in Firefox is broken for me on my mac. I can't get it to show logs or sources, even when I try an official
       extension example like 'beastify'. It does not work like the [Extension workshop docs](https://extensionworkshop.com/documentation/develop/debugging/#debugging-popups)
       say it should. I need to try on my Windows computer.
-* [ ] Remove Deno for NPM and Webpack. It was a rewarding experience and a quick start. But I need to understand a build
+* [x] DONE Remove Deno for NPM and Webpack. It was a rewarding experience and a quick start. But I need to understand a build
       a prototypical library and user/developer experience. There are so many quirks of browser-based JS modules that I
       can't afford to stray from mainstream.
 
@@ -136,7 +155,7 @@ Finished items:
 * [X] DONE Consider abstracting away the required content script "thin bootstrap" files. For example, `dcl-content-script.ts`
   shouldn't have to exist. I thought it did earlier, but it's not needed. It can be replaced with a generic middleware
   content script.
-* [x] DONE Support FireFox in the example. If the example supports both Chromium and FireFox, then I can build it, verify the
+* [x] DONE Support Firefox in the example. If the example supports both Chromium and Firefox, then I can build it, verify the
   behavior in both browsers, and have confidence that the framework still works.
 * [x] DONE Are [import maps](https://deno.land/manual@v1.21.0/linking_to_external_code/import_maps) going to save me from the
   awkward "installation-time" setter of the "browser descriptor? (e.g. 'chrome' of 'firefox')" and can it also be

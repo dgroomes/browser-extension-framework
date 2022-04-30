@@ -1,18 +1,24 @@
-// Learn more about Deno's configuration file from the docs: https://deno.land/manual/typescript/configuration
-//
-// I think there is a defect in the Deno Intellij plugin because I had to rename this file from 'deno.jsonc' to 'deno.json'
-// so Intellij would recognize the `"lib": ["dom", ...` option. Without this change, I got IDE red underline highlights
-// saying "Deno can't find 'document'. Add `"lib": "dom"` to your deno.json file".
 {
   "compilerOptions": {
+    "outDir": "./dist/",
+    "sourceMap": true,
+
+    // Setting 'declaration: true' will generate 'd.ts' (declaration files?) files into the output directory.
+    "declaration": true,
+
     // The "lib" configuration helps us write browser-compatible JavaScript code. This means our TypeScript code will
     // be verified against browser types like "Document".
-    "lib": ["dom", "dom.iterable", "dom.asynciterable", "deno.ns"],
+    "lib": ["dom", "dom.iterable"],
 
     // While converting from JavaScript to TypeScript we can benefit from relaxing the type strictness. If the conversion
     // from JavaScript to TypeScript is not coupled with any refactoring, then we can lean on the existing code because
     // it's working code. If we were to restructure and refactor while converting from JavaScript to TypeScript, that's
     // a different proposition. The new code hasn't been tested/used yet and would benefit from the type strictness.
-    "noImplicitAny": false
+    "noImplicitAny": false,
+
+    "module": "es6",
+    "target": "es6",
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
   }
 }

@@ -1,19 +1,14 @@
-// Type declarations for the Chrome web extension JavaScript API.
-// deno-lint-ignore-file no-explicit-any
+// Type declarations for Chrome and the Chrome web extension JavaScript API.
 
-export {Chrome, Runtime, chrome, Tab}
-
-declare var chrome: Chrome
-
-interface Chrome {
-    declarativeContent: DeclarativeContent;
-    runtime: Runtime
-    storage: Storage
-    tabs: Tabs
+declare namespace chrome {
+    let declarativeContent: DeclarativeContent
+    let runtime: ChromeRuntime
+    let storage: Storage
+    let tabs: Tabs
 }
 
 /** The "chrome.runtime" API https://developer.chrome.com/docs/extensions/reference/runtime/ */
-interface Runtime {
+interface ChromeRuntime {
 
     /** https://developer.chrome.com/docs/extensions/reference/runtime/#method-sendMessage */
     sendMessage(

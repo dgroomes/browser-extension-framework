@@ -1,13 +1,10 @@
-// deno-lint-ignore-file no-explicit-any
+// Type declarations for Firefox and the Firefox web extension JavaScript API.
+//
+// See https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API
 
-export {browser}
-
-/** FireFox web extension docs and the "browser" global variable: https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API */
-declare var browser: FireFox
-
-interface FireFox {
-    tabs: Tabs
-    runtime: Runtime
+declare namespace browser {
+    let tabs: Tabs
+    let runtime: Runtime
 }
 
 /** https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/runtime */

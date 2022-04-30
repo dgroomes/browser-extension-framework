@@ -1,5 +1,5 @@
-import {BackendWiring} from "../../api/backend-wiring.ts";
-import {BrowserDescriptor} from "../../browserDescriptor.ts";
+import {BrowserDescriptor} from "../../browserDescriptor";
+import {BrowserExtensionFramework} from "../../browser-extension-framework";
 
 console.debug("[dcl-popup-script.js] Initializing...")
 
@@ -8,7 +8,7 @@ document.getElementById("execute-detect")!
         console.info(`[dcl-popup-script.js] Clicked the 'Detect' button`);
 
         // Note: we're not supporting Firefox because I can't actually test with Firefox. See the related 'Wish List' item in the README.
-        const backendWiring = await BackendWiring.initialize(BrowserDescriptor.CHROMIUM);
+        const backendWiring = await BrowserExtensionFramework.initializeBackendWiring(BrowserDescriptor.CHROMIUM);
         await backendWiring.injectInstrumentedPageScript("dcl-page-script.js")
 
         const response = await backendWiring.rpcClient.execRemoteProcedure("detect", {});

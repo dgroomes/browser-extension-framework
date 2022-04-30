@@ -1,9 +1,7 @@
-import {chrome, Tab} from "../vendor/chrome-extension-types.d.ts"
-import {browser} from "../vendor/firefox-extension-types.d.ts"
-import {RpcClient, RpcServer} from "../rpc/rpc.ts";
-import {getRpcClient, getRpcServer} from "../rpc/rpc-backend.ts";
-import {BackendWiring} from "../api/backend-wiring.ts";
-import {BrowserDescriptor, getBrowserDescriptor, setBrowserDescriptor} from "../browserDescriptor.ts";
+import {RpcClient, RpcServer} from "../rpc/rpc";
+import {getRpcClient, getRpcServer} from "../rpc/rpc-backend";
+import {BackendWiring} from "../api/backend-wiring";
+import {BrowserDescriptor, getBrowserDescriptor, setBrowserDescriptor} from "../browserDescriptor";
 
 export {BackendWiringImpl}
 

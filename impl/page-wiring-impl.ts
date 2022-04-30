@@ -1,6 +1,6 @@
-import {initRpcWebPage} from "../rpc/rpc-web-page.ts";
-import {RpcClient, RpcServer} from "../rpc/rpc.ts";
-import {PageWiring} from "../api/page-wiring.ts";
+import {initRpcWebPage} from "../rpc/rpc-web-page";
+import {RpcClient, RpcServer} from "../rpc/rpc";
+import {PageWiring} from "../api/page-wiring";
 
 export {PageWiringImpl}
 

@@ -1,8 +1,4 @@
-import {BackendWiringImpl} from "../impl/backend-wiring-impl.ts";
-import {RpcClient, RpcServer} from "../rpc/rpc.ts";
-import {BrowserDescriptor} from "../browserDescriptor.ts";
-
-export {BackendWiring}
+import {RpcClient, RpcServer} from "../rpc/rpc";
 
 /**
  * The BackendWiring class is part of the BrowserExtensionFramework's public API. It must be used in code that runs
@@ -11,11 +7,11 @@ export {BackendWiring}
  * It encapsulates the functionality and configuration (i.e. "wiring") that power the framework in background or popup
  * scripts.
  *
- * Use the "initialize" method to get up and running.
+ * Use the "initialize" method in "BrowserExtensionFramework" to get up and running.
  *
  * This class would be used by the "dcl-popup-script.ts" file in the "Detect Code Libraries" example project.
  */
-abstract class BackendWiring {
+export abstract class BackendWiring {
 
     rpcClient: RpcClient
     rpcServer: RpcServer
@@ -23,10 +19,6 @@ abstract class BackendWiring {
     protected constructor(rpcClient: RpcClient, rpcServer: RpcServer) {
         this.rpcClient = rpcClient;
         this.rpcServer = rpcServer;
-    }
-
-    static initialize(browserDescriptor: BrowserDescriptor) : Promise<BackendWiring> {
-        return BackendWiringImpl.initialize(browserDescriptor)
     }
 
     /**
