@@ -137,15 +137,9 @@ General clean ups, TODOs and things I wish to implement for this project:
 * [ ] Update the overall instructions. Especially since I started bundling the source code files into a "bundle" (because we're
       compiling TypeScript into 'entrypoint'-like files), the instructions have gotten stale. Also the whole 'RPC sub-framework'
       isn't really clear anymore.
-* [x] DONE Stop using import maps for differentiating between Chromium/Firefox things. When it comes to publishing
-      this library, I don't want to publish a Firefox artifact separately from a Chromium one. Node tooling is not equipped
-      for consuming multi-flavor artifacts.
 * [ ] Debugging in Firefox is broken for me on my mac. I can't get it to show logs or sources, even when I try an official
       extension example like 'beastify'. It does not work like the [Extension workshop docs](https://extensionworkshop.com/documentation/develop/debugging/#debugging-popups)
       say it should. I need to try on my Windows computer.
-* [x] DONE Remove Deno for NPM and Webpack. It was a rewarding experience and a quick start. But I need to understand a build
-      a prototypical library and user/developer experience. There are so many quirks of browser-based JS modules that I
-      can't afford to stray from mainstream.
 
 Finished items:
 
@@ -167,6 +161,12 @@ Finished items:
   public functions are `BackendWiring.initialize` and `BackendWiring.injectInstrumentedPageScript`. I don't want
   end-users to have to see the function bodies when browsing the API. Maybe move the implementation details into an
   `impl/` or `wiring/` directory (it doesn't really matter where).
+* [x] DONE Stop using import maps for differentiating between Chromium/Firefox things. When it comes to publishing
+  this library, I don't want to publish a Firefox artifact separately from a Chromium one. Node tooling is not equipped
+  for consuming multi-flavor artifacts.
+* [x] DONE Remove Deno for NPM and Webpack. It was a rewarding experience and a quick start. But I need to understand a build
+  a prototypical library and user/developer experience. There are so many quirks of browser-based JS modules that I
+  can't afford to stray from mainstream.
 
 ## Reference
 
