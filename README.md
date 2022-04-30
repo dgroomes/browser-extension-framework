@@ -140,6 +140,12 @@ General clean ups, TODOs and things I wish to implement for this project:
 * [ ] Debugging in Firefox is broken for me on my mac. I can't get it to show logs or sources, even when I try an official
       extension example like 'beastify'. It does not work like the [Extension workshop docs](https://extensionworkshop.com/documentation/develop/debugging/#debugging-popups)
       say it should. I need to try on my Windows computer.
+* [ ] Can I use interfaces for `BackendWiring` and `PageWiring`? It has been a journey to experiment with Deno, TypeScript,
+      ts-loader and webpack and frequently face surprising restrictions in the way we can write TypeScript code. There are
+      problems with something about final or non-extendable interfaces (seemed to be more of a Deno restriction) and then
+      there are problems with cyclic dependencies (seemingly a ts-loader/webpack problem, I was not facing it with Deno).
+      Anyway, `BackendWiring` is only usefully exposed to the user as an interface, not an abstract class. Can I make it
+      an interface?
 
 Finished items:
 
