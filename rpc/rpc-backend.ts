@@ -3,7 +3,7 @@
 import {chrome, Tab} from "/vendor/chrome-extension-types.d.ts"
 import {browser} from "/vendor/firefox-extension-types.d.ts"
 import {RpcClient, RpcServer} from "./rpc.ts"
-import {browserDescriptor} from "/vendor/browser-constants";
+import {BrowserDescriptor, getBrowserDescriptor} from "../browserDescriptor.ts";
 
 export {getRpcServer, getRpcClient}
 
@@ -15,11 +15,10 @@ let _rpcServer: RpcServer
 function getRpcServer() : RpcServer {
     if (_rpcServer instanceof RpcServer) return _rpcServer
 
-    // @ts-ignore the constant value 'browserDescriptor' is import-mapped differently for chromium vs firefox.
-    if (browserDescriptor === "chromium") {
+    const browserDescriptor: BrowserDescriptor = getBrowserDescriptor();
+    if (browserDescriptor === BrowserDescriptor.CHROMIUM) {
         _rpcServer = new ChromiumBackgroundRpcServer()
-    // @ts-ignore the constant value 'browserDescriptor' is import-mapped differently for chromium vs firefox.
-    } else if (browserDescriptor === "firefox") {
+    } else if (browserDescriptor === BrowserDescriptor.FIREFOX) {
         _rpcServer = new FirefoxBackgroundRpcServer()
     } else {
         throw new Error(`Unexpected browser: '${browserDescriptor}'. Expected either 'chromium' or 'firefox'`)
@@ -47,11 +46,10 @@ async function getRpcClient() {
         })
     })
 
-    // @ts-ignore the constant value 'browserDescriptor' is import-mapped differently for chromium vs firefox.
-    if (browserDescriptor === "chromium") {
+    const browserDescriptor = getBrowserDescriptor();
+    if (browserDescriptor === BrowserDescriptor.CHROMIUM) {
         _rpcClient = new ChromiumBackgroundToContentScriptRpcClient(activeTab.id)
-    // @ts-ignore the constant value 'browserDescriptor' is import-mapped differently for chromium vs firefox.
-    } else if (browserDescriptor === "firefox") {
+    } else if (browserDescriptor === BrowserDescriptor.FIREFOX) {
         _rpcClient = new FirefoxBackgroundToContentScriptRpcClient(activeTab.id)
     } else {
         throw new Error(`Unexpected browser: '${browserDescriptor}'. Expected either 'chromium' or 'firefox'`)

@@ -1,5 +1,6 @@
 import {BackendWiringImpl} from "/impl/backend-wiring-impl.ts";
 import {RpcClient, RpcServer} from "/rpc/rpc.ts";
+import {BrowserDescriptor} from "../browserDescriptor.ts";
 
 export {BackendWiring}
 
@@ -24,8 +25,8 @@ abstract class BackendWiring {
         this.rpcServer = rpcServer;
     }
 
-    static initialize() : Promise<BackendWiring> {
-        return BackendWiringImpl.initialize()
+    static initialize(browserDescriptor: BrowserDescriptor) : Promise<BackendWiring> {
+        return BackendWiringImpl.initialize(browserDescriptor)
     }
 
     /**

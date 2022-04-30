@@ -2,8 +2,8 @@ import {chrome, Tab} from "/vendor/chrome-extension-types.d.ts"
 import {browser} from "/vendor/firefox-extension-types.d.ts"
 import {RpcClient, RpcServer} from "/rpc/rpc.ts";
 import {getRpcClient, getRpcServer} from "/rpc/rpc-backend.ts";
-import {browserDescriptor} from "/vendor/browser-constants";
 import {BackendWiring} from "../api/backend-wiring.ts";
+import {BrowserDescriptor, getBrowserDescriptor, setBrowserDescriptor} from "../browserDescriptor.ts";
 
 export {BackendWiringImpl}
 
@@ -13,8 +13,8 @@ class BackendWiringImpl extends BackendWiring {
         super(rpcClient, rpcServer)
     }
 
-
-    static async initialize(): Promise<BackendWiringImpl> {
+    static async initialize(browserDescriptor: BrowserDescriptor): Promise<BackendWiringImpl> {
+        setBrowserDescriptor(browserDescriptor)
         const rpcClient = await getRpcClient();
         const rpcServer = getRpcServer();
         await initializeMiddleware()
@@ -59,11 +59,11 @@ class BackendWiringImpl extends BackendWiring {
             })
         })
 
-        // @ts-ignore the constant value 'browserDescriptor' is import-mapped differently for chromium vs firefox.
-        if (browserDescriptor === "chromium") {
+        const browserDescriptor = getBrowserDescriptor();
+        if (browserDescriptor === BrowserDescriptor.CHROMIUM) {
             chrome.tabs.sendMessage(activeTab.id, injectPageRequest)
             // @ts-ignore the constant value 'browserDescriptor' is import-mapped differently for chromium vs firefox.
-        } else if (browserDescriptor === "firefox") {
+        } else if (browserDescriptor === BrowserDescriptor.FIREFOX) {
             await browser.tabs.sendMessage(activeTab.id, injectPageRequest)
         } else {
             throw new Error(`Unrecognized browser descriptor: ${browserDescriptor}`)
