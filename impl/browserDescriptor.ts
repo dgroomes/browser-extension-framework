@@ -1,14 +1,11 @@
 // Describe the browser type (either Chromium or Firefox)
 // This is global state.
 
-export enum BrowserDescriptor {
-    CHROMIUM,
-    FIREFOX
-}
+import {BrowserDescriptor} from "../api/browser-extension-framework";
 
-let _browserDescriptor : BrowserDescriptor | null = null
+let _browserDescriptor: BrowserDescriptor | null = null
 
-export function getBrowserDescriptor() : BrowserDescriptor {
+export function getBrowserDescriptor(): BrowserDescriptor {
     if (_browserDescriptor !== null) return _browserDescriptor
     throw new Error("The browser descriptor has not been set. It is an error to request the browser descriptor without first setting it. Use the 'setBrowserDescriptor(...)' function to set the browser descriptor")
 }

@@ -1,7 +1,8 @@
 // This code is designed to run in background scripts.
 
 import {RpcClient, RpcServer} from "./rpc"
-import {BrowserDescriptor, getBrowserDescriptor} from "../browserDescriptor";
+import {BrowserDescriptor} from "../api/browser-extension-framework";
+import {getBrowserDescriptor} from "../impl/browserDescriptor";
 
 export {getRpcServer, getRpcClient}
 
