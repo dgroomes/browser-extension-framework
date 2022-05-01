@@ -104,6 +104,20 @@ extension and web page contexts:
 
 General clean ups, TODOs and things I wish to implement for this project:
 
+* [ ] TypeScript in combination with other tooling (npm, webpack) is so hard. I'm naming my Chromium and Firefox TypeScript type
+      declaration packages with the name `@types` just to get things to work. The TypeScript compiler makes some
+      assumptions about this package and things "just work" if the type declarations are in `node_modules/@types`. This
+      is strange in my opinion because why should the owner of the `@types` package (DefinitelyTyped) have a monopoly on type
+      declarations in the official TypeScript toolchain? People should be able to bring their own types. And you should be
+      able to by using the `typeRoots` config in `tsconfig.json`, but I was having issues with it. (maybe it's an npm
+      workspaces bug?). Below is the snippet I was trying.
+  ```json
+  "typeRoots": [
+    "../node_modules/@types",
+    "../node_modules/@dgroomes/chromium-types",
+    "../node_modules/@dgroomes/firefox-types"
+  ]
+  ```
 * [ ] Consider publishing to npm. Publishing the compiled JavaScript and the TypeScript declaration files. A useful step
       to do before this would be to publish the distribution locally and consume it from the 'Detect Code Libraries' example
       project.

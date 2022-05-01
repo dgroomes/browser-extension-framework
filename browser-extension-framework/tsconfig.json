@@ -20,21 +20,5 @@
     "target": "es6",
     "allowJs": true,
     "allowSyntheticDefaultImports": true
-  },
-
-  // This is not the preferred way to incorporate TypeScript type definitions from a node_module, but this is the only
-  // thing that I could get to work.
-  //
-  // I should be able to update set the 'typeRoots' configuration to something that includes DefinitelyTyped (i.e. '@types'
-  // and my own types ('@dgroomes/chromium-types' and '@dgroomes/firefox-types') but I could not get it to work. Below
-  // is the snippet I was trying.
-  //    "typeRoots": [
-  //      "../node_modules/@types",
-  //      "../node_modules/@dgroomes/chromium-types",
-  //      "../node_modules/@dgroomes/firefox-types"
-  //    ],
-  "include": [
-    "../node_modules/@dgroomes/chromium-types/global.d.ts",
-    "../node_modules/@dgroomes/firefox-types/global.d.ts",
-  ]
+  }
 }
