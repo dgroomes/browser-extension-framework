@@ -2,27 +2,18 @@
 
 🛠 BrowserExtensionFramework is a zero-dependency RPC-centric framework for browser extensions (sometimes called web extensions).
 
+
 ## Design
 
 **NOTE**: This project was developed on macOS. It is for my own personal use.
 
-The source code layout:
+This project is made up of multiple npm workspaces:
 
-* `api/`
-    * The code in this directory is the public API for the framework. It exposes `BackendWiring` and `PageWiring` classes
-      which must be called by user code.
-* `impl/`
-    * Various implementation code. 
-* `vendor/`
-    * Vendor-specific code. TypeScript type declaration files for browser (vendor) JavaScript APIs. This means there are `.d.ts` files for
-      Chromium's `chrome` JavaScript APIs and Firefox's `browser` JavaScript APIs. Yes there is probably an open source
-      version of this but I would prefer to minimize third-party dependencies where feasible (Update: I'm happy to depend
-      on first-party libraries from, for example, Mozilla. I think they have a nice polyfill).
-* `rpc/`
-    * The code in this directory implements a generic Remote Procedure Call (RPC) framework for browser extensions. This
-      code has components that run in all contexts: background scripts, popup scripts, content scripts, and the web
-      page.
-    * For more information, see [RPC Framework](#rpc-framework)
+* `browser-extension-framework/`
+   * This is the core of BrowserExtensionFramework.
+* `examples/detect-code-libraries`
+   * 'Detect Code Libraries' is an example browser extension that is built with BrowserExtensionFramework.
+
 
 ## Browser Extension Framework
 
@@ -88,6 +79,7 @@ message that was not intended for it. I think this is virtually impossible thoug
 environment where we exercise almost complete control of the environment. By contrast, an RPC system in a distributed
 system spanning different networks would need to handle these cases.
 
+
 #### RPC Framework Usage Instructions
 
 Browser extensions that use the RPC Framework must follow these steps to depend on and initialize the framework in the
@@ -103,30 +95,20 @@ extension and web page contexts:
 1. Initialize objects in the web page
     * The web page must initialize the RPC objects on the web page by calling `initRpcWebPage(...)`
 
-## Development Instructions
-
-Follow these instructions to build BrowserExtensionFramework:
-
-1. Install dependencies
-   * ```shell
-     npm install
-     ```
-2. Build the library distributions:
-   * ```shell
-     npm run build
-     ```
-   * Notice that this builds builds *distributions* (plural!) not just a single distribution. Most libraries will publish
-     a main artifact, but BrowserExtensionFramework needs to publish three equally important artifacts. There is an artifact
-     for each JavaScript execution environment in a browser extension architecture: 1) backend 2) content script and 3)
-     web page. 
 
 ## Wish List
 
 General clean ups, TODOs and things I wish to implement for this project:
 
-* [ ] Consider publishing to NPM. Publishing the compiled JavaScript and the TypeScript declaration files. A useful step
+* [ ] Consider publishing to npm. Publishing the compiled JavaScript and the TypeScript declaration files. A useful step
       to do before this would be to publish the distribution locally and consume it from the 'Detect Code Libraries' example
       project.
+* [ ] Move Chrome and Firefox TypeScript type declaration files into a separate workspace. These type declarations are
+      orthogonal to the implementation of BrowserExtensionFramework. They fit best in a separate workspace.
+* [x] DONE Organize code into npm "workspaces". Workspaces were introduced with the [release of npm 7 in 2020](https://github.blog/2020-10-13-presenting-v7-0-0-of-the-npm-cli/).
+      I would consider workspaces a long-awaited feature because it's a tool that we have in most other programming languages
+      and toolchains: Gradle (Java and JVM languages) has multi-project support, Rust has crates, Go has something (modules?) etc.
+      * I used this command to init a workspace: `npm init --workspace packages/framework` and `npm init --workspace packages/example-detect-code-libraries`
 * [ ] Runtime check the "externally_accessible" configuration list (I assume that's possible but I wouldn't be surprised if
       it wasn't) and warn if the current web page is not in the list. (This was the problem I had when I developed the
       example extension and I was confused). 
@@ -170,7 +152,7 @@ Finished items:
 * [x] DONE Stop using import maps for differentiating between Chromium/Firefox things. When it comes to publishing
   this library, I don't want to publish a Firefox artifact separately from a Chromium one. Node tooling is not equipped
   for consuming multi-flavor artifacts.
-* [x] DONE Remove Deno for NPM and Webpack. It was a rewarding experience and a quick start. But I need to understand a build
+* [x] DONE Remove Deno for npm and Webpack. It was a rewarding experience and a quick start. But I need to understand a build
   a prototypical library and user/developer experience. There are so many quirks of browser-based JS modules that I
   can't afford to stray from mainstream.
 

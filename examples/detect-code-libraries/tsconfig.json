@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "sourceMap": true,
+
+    // The "lib" configuration helps us write browser-compatible JavaScript code. This means our TypeScript code will
+    // be verified against browser types like "Document".
+    "lib": ["dom", "dom.iterable"],
+
+    "noImplicitAny": false,
+    "module": "es6",
+    "target": "es6",
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "include": [
+    "../../browser-extension-framework/vendor"
+  ]
+}

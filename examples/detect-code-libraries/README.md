@@ -1,6 +1,6 @@
-# example
+# detect-code-libraries
 
-This is an example browser extension that uses BrowserExtensionFramework.
+'Detect Code Libraries' is an example browser extension that is built with BrowserExtensionFramework
 
 
 ## "Detect Code Libraries"
@@ -41,7 +41,7 @@ Follow these instructions to install the tool as a Chrome browser extension and 
     * Enable the *Developer mode* toggle control in the upper right corner of the page
 1. Install the extension
     * Click the *Load unpacked* button
-    * In the file finder window that opens, find the extension distribution directory `distribution/chromium-manifest-v2`,
+    * In the file finder window that opens, find the extension distribution directory `dist/chromium-manifest-v2`,
       single click it to highlight it, and click the *Select* button.
     * It's installed!
 1. Open the browser to <https://en.wikipedia.org/wiki/Main_Page>
@@ -65,6 +65,6 @@ DCL can also be installed as a web extension in Firefox! Follow these instructio
    * Paste and go to this URL: <about:debugging#/runtime/this-firefox>
 1. Load the plugin
    * Click the button with the words *Load Temporary Add-on…*
-   * In the file finder window that opens, find the file `distribution/firefox-manifest-v2-web-extension/manifest.json` and
+   * In the file finder window that opens, find the file `dist/firefox-manifest-v2-web-extension/manifest.json` and
      click *Open*
    * It's installed!

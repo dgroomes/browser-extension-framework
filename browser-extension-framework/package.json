@@ -1,7 +1,7 @@
 {
-  "name": "example",
+  "name": "browser-extension-framework",
   "version": "0.1.0",
-  "description": "Detect Code Libraries. Example project that uses BrowserExtensionFramework",
+  "description": "BrowserExtensionFramework is a zero-dependency RPC-centric framework for browser extensions.",
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode development"
@@ -12,5 +12,5 @@
     "webpack": "5.72.0",
     "webpack-cli": "4.9.2"
   },
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
 }

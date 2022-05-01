@@ -3,8 +3,8 @@ const path = require('path');
 module.exports = {
     mode: 'development',
     entry: {
-        'browser-extension-framework': './browser-extension-framework.ts',
-        'content-script-middleware': './content-script-middleware.ts'
+        'dcl-page-script': './src/dcl-page-script.ts',
+        'dcl-popup-script': './src/dcl-popup-script.ts'
     },
     module: {
         rules: [{

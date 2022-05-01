@@ -1,4 +1,4 @@
-import {BrowserDescriptor, BrowserExtensionFramework} from "../../api/browser-extension-framework";
+import {BrowserDescriptor, BrowserExtensionFramework} from "../../../browser-extension-framework/api/browser-extension-framework";
 
 console.debug("[dcl-popup-script.js] Initializing...")
 
