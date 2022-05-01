@@ -11,6 +11,10 @@ This project is made up of multiple npm workspaces:
 
 * `browser-extension-framework/`
    * This is the core of BrowserExtensionFramework.
+* `browser-types/chromium-types`
+   * TypeScript type declaration files for Chromium JavaScript APIs.
+* `browser-types/firefox-types`
+   * TypeScript type declaration files for Firefox JavaScript APIs.
 * `examples/detect-code-libraries`
    * 'Detect Code Libraries' is an example browser extension that is built with BrowserExtensionFramework.
 
@@ -103,7 +107,7 @@ General clean ups, TODOs and things I wish to implement for this project:
 * [ ] Consider publishing to npm. Publishing the compiled JavaScript and the TypeScript declaration files. A useful step
       to do before this would be to publish the distribution locally and consume it from the 'Detect Code Libraries' example
       project.
-* [ ] Move Chrome and Firefox TypeScript type declaration files into a separate workspace. These type declarations are
+* [x] DONE Move Chrome and Firefox TypeScript type declaration files into a separate workspace. These type declarations are
       orthogonal to the implementation of BrowserExtensionFramework. They fit best in a separate workspace.
 * [x] DONE Organize code into npm "workspaces". Workspaces were introduced with the [release of npm 7 in 2020](https://github.blog/2020-10-13-presenting-v7-0-0-of-the-npm-cli/).
       I would consider workspaces a long-awaited feature because it's a tool that we have in most other programming languages

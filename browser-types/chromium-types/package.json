@@ -1,0 +1,10 @@
+{
+  "name": "@dgroomes/chromium-types",
+  "version": "0.1.0",
+  "types": "global.d.ts",
+  "files": [
+    "global.d.ts"
+  ],
+  "description": "TypeScript type declaration files for Chromium JavaScript APIs.",
+  "license": "UNLICENSED"
+}

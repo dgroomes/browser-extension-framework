@@ -9,6 +9,8 @@
   "license": "UNLICENSED",
   "workspaces": [
     "browser-extension-framework",
-    "examples/detect-code-libraries"
+    "examples/detect-code-libraries",
+    "browser-types/chromium-types",
+    "browser-types/firefox-types"
   ]
 }

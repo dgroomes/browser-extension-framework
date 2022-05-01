@@ -14,6 +14,7 @@
     "allowSyntheticDefaultImports": true
   },
   "include": [
-    "../../browser-extension-framework/vendor"
+    "../../node_modules/@dgroomes/chromium-types/global.d.ts",
+    "../../node_modules/@dgroomes/firefox-types/global.d.ts",
   ]
 }
