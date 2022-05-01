@@ -10,6 +10,8 @@
     // be verified against browser types like "Document".
     "lib": ["dom", "dom.iterable"],
 
+    "moduleResolution": "Node",
+
     // While converting from JavaScript to TypeScript we can benefit from relaxing the type strictness. If the conversion
     // from JavaScript to TypeScript is not coupled with any refactoring, then we can lean on the existing code because
     // it's working code. If we were to restructure and refactor while converting from JavaScript to TypeScript, that's

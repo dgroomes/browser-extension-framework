@@ -7,14 +7,11 @@
     // be verified against browser types like "Document".
     "lib": ["dom", "dom.iterable"],
 
+    "moduleResolution": "Node",
     "noImplicitAny": false,
     "module": "es6",
     "target": "es6",
     "allowJs": true,
     "allowSyntheticDefaultImports": true
-  },
-  "include": [
-    "../../node_modules/@dgroomes/chromium-types/global.d.ts",
-    "../../node_modules/@dgroomes/firefox-types/global.d.ts",
-  ]
+  }
 }
