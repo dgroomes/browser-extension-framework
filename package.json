@@ -3,9 +3,6 @@
   "description": "This is the root of the BrowserExtensionFramework project. See the individual npm workspaces for more information.",
   "version": "0.1.0",
   "private": true,
-  "scripts": {
-    "build": "webpack --mode development"
-  },
   "license": "UNLICENSED",
   "workspaces": [
     "browser-extension-framework",
