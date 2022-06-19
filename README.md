@@ -105,10 +105,6 @@ extension and web page contexts:
 
 General clean ups, TODOs and things I wish to implement for this project:
 
-* [x] DONE Use the `index.ts` (or `.js`, `.mjs`, whatever) convention instead of the `api/` way. This is a common and well-understood
-      convention.
-* [x] DONE Resolve the warnings output from both Rollup and API Extractor. Resolving these errors will require making changes
-      to the source code. I didn't want to make those changes when I introduced the new tools in order to minimize the diff.
 * [ ] TypeScript in combination with other tooling (npm, webpack) is so hard. I'm naming my Chromium and Firefox TypeScript type
       declaration packages with the name `@types` just to get things to work. The TypeScript compiler makes some
       assumptions about this package and things "just work" if the type declarations are in `node_modules/@types`. This
@@ -184,6 +180,10 @@ General clean ups, TODOs and things I wish to implement for this project:
   I would consider workspaces a long-awaited feature because it's a tool that we have in most other programming languages
   and toolchains: Gradle (Java and JVM languages) has multi-project support, Rust has crates, Go has something (modules?) etc.
   * I used this command to init a workspace: `npm init --workspace packages/framework` and `npm init --workspace packages/example-detect-code-libraries`
+* [x] DONE Use the `index.ts` (or `.js`, `.mjs`, whatever) convention instead of the `api/` way. This is a common and well-understood
+  convention.
+* [x] DONE Resolve the warnings output from both Rollup and API Extractor. Resolving these errors will require making changes
+  to the source code. I didn't want to make those changes when I introduced the new tools in order to minimize the diff.
 
 
 ## Reference
