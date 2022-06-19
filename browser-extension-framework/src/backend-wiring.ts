@@ -28,7 +28,7 @@ export abstract class BackendWiring {
      * This function would be used to inject the "dcl-page-script.js" file as described in the "Detect Code Libraries"
      * example project README.
      *
-     * @return a promise that resolves when the page script has been loaded and the content script middleware has given
+     * @returns a promise that resolves when the page script has been loaded and the content script middleware has given
      * the "page-injection-complete" signal.
      */
     abstract injectInstrumentedPageScript(fileName: string): Promise<void>

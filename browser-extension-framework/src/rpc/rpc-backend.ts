@@ -33,7 +33,7 @@ let _rpcClient : RpcClient
  *
  * It's necessary to find the active browser tab.
  *
- * @return {RpcClient}
+ * @returns {RpcClient}
  */
 async function getRpcClient() {
     if (_rpcClient instanceof RpcClient) return _rpcClient

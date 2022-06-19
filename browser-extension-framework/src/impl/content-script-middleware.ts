@@ -92,7 +92,7 @@ async function pageScriptInjectionRequestsListener(message, _sender, _sendRespon
  *
  * @param fileName the name of a JavaScript file which must include framework-instrumented code
  *
- * @return a promise that resolves after the script has loaded and when it has signalled it is "satisfied". The function
+ * @returns a promise that resolves after the script has loaded and when it has signalled it is "satisfied". The function
  *         also broadcasts a 'page-injection-complete' message so that the calling backend code knows the procedure is done.
  */
 function injectInstrumentedPageScript(fileName: string): Promise<void> {

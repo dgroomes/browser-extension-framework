@@ -81,7 +81,7 @@ const MIDDLEWARE_SCRIPT = "/content-script-middleware.js"
  * This function injects the content script (it should probably protect against double injection, right?) and waits for
  * a special 'content-script-middleware-satisfied' message in the browser extension messaging system.
  *
- * @return a promise that resolves when the middleware has given the 'content-script-middleware-satisfied' signal.
+ * @returns a promise that resolves when the middleware has given the 'content-script-middleware-satisfied' signal.
  */
 async function initializeMiddleware(): Promise<void> {
     console.debug(`[backend-wiring] Injecting the middleware content script (${MIDDLEWARE_SCRIPT})`)
