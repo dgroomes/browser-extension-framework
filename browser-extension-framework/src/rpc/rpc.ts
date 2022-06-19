@@ -152,7 +152,7 @@ abstract class RpcClient {
     abstract execRemoteProcedure<T,R>(procedureName, procedureArgs: T): Promise<R>
 }
 
-interface RpcRequestMessage<T> {
+export interface RpcRequestMessage<T> {
     procedureTargetReceiver: string
     procedureName: string
     procedureArgs: T

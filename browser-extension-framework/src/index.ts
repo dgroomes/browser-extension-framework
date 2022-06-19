@@ -1,2 +1,5 @@
 export * from "./browser-extension-framework"
-export {BrowserDescriptor} from "./browser-descriptor";
+export {BrowserDescriptor} from "./browser-descriptor"
+export * from "./backend-wiring"
+export * from "./page-wiring"
+export {RpcClient, RpcServer, RpcRequestMessage} from "./rpc/rpc"
