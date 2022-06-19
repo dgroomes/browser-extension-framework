@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "outDir": "./dist/",
+    "outDir": "./transpiled/",
     "sourceMap": true,
 
     // Setting 'declaration: true' will generate 'd.ts' (declaration files?) files into the output directory.
@@ -21,6 +21,19 @@
     "module": "es6",
     "target": "es6",
     "allowJs": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+
+    // Avoid the 'dependency hell' of type checking third-party software that disagrees with third-party software.
+    //
+    // Say again? In a typical NPM project, there will exist multiple dependencies. If this project is a TypeScript project,
+    // then there will exist a type-checking phase executed by the TypeScript compiler ('tsc'). While this could be a useful
+    // thing in theory, it ends being a roadblock in practice. After all, toolchains like Java + Gradle/Maven don't compile
+    // or type-check third-party .jar dependencies with each other. In fact, that doesnt' even make sense because the
+    // source code has already been compiled to JVM bytecode. So, in an NPM + TypeScript project, let's follow Java's
+    // suit.
+    //
+    // See https://en.wikipedia.org/wiki/Dependency_hell
+    // See https://stackoverflow.com/questions/59906323/typescript-skiplibcheck-still-checking-node-modules-libs
+    "skipLibCheck": true
   }
 }

@@ -25,15 +25,33 @@ The source code is laid out across these directories:
 
 Follow these instructions to build BrowserExtensionFramework:
 
-1. Install dependencies
+1. Install dependencies:
     * ```shell
       npm install
       ```
-2. Build the library distributions:
+2. Transpile the TypeScript:
     * ```shell
-      npm run build
+      npm run transpile
       ```
-    * Notice that this builds builds *distributions* (plural!) not just a single distribution. Most libraries will publish
-      a main artifact, but BrowserExtensionFramework needs to publish three equally important artifacts. There is an artifact
-      for each JavaScript execution environment in a browser extension architecture: 1) backend 2) content script and 3)
-      web page. 
+3. Bundle the JavaScript code:
+    * ```shell
+      npm run bundle-js
+      ```
+4. Bundle the TypeScript declarations:
+    * ```shell
+      npm run bundle-types
+      ```
+
+The final result of the build process is three artifacts:
+
+* `dist/index.mjs`
+  * This is the main code. 
+* `dist/index.d.ts`
+  * This is a TypeScript declaration file. It gives TypeScript projects type information that describes the main code.  
+* `content-script-middleware.js`
+  * This is a special file. Most libraries will publish a main artifact, and sometimes TypeScript declaration files, but
+    BrowserExtensionFramework needs to publish an additional artifact. The `content-script-middleware.js` file should be
+    loaded in a "content script" by a browser extension. It should be loaded as-is. It does not export anything (and thus
+    is suffixed with plain `.js` instead of `.mjs`). It sets up the necessary listeners and glue code that allows
+    BrowserExtensionFramework to communicate through the content script between context like popup scripts and web page
+    scripts.
