@@ -50,6 +50,7 @@ using it!
 The API is best introduced by way of example. See the README in the [`example/`](example/) directory which contains an
 example web extension.
 
+
 ### RPC Framework
 
 A significant portion of a non-trivial browser extension is often dedicated to *Message Passing* between the four components
@@ -108,11 +109,6 @@ General clean ups, TODOs and things I wish to implement for this project:
       convention.
 * [ ] Resolve the warnings output from both Rollup and API Extractor. Resolving these errors will require making changes
       to the source code. I didn't want to make those changes when I introduced the new tools in order to minimize the diff.
-* [x] DONE Remove Webpack and instead use Rollup and API Extractor. I figured out, through my [work here](https://github.com/dgroomes/javascript-playground/commit/3e7b1a0f68fb0e5984e2fec5b1ef22ca4c4d9b4e)
-      that Rollup is a better fit for libraries. UPDATE: well this even drives the point home more strongly.. I found
-      that Webpack continued to work well on the app side (DCL (detect-code-libraries)) because I couldn't get Rollup to work
-      in DCL. Webpack is not dead! I think Rollup had trouble because of NPM workspaces, but I couldn't prove it and didn't
-      need to bother with it. 
 * [ ] TypeScript in combination with other tooling (npm, webpack) is so hard. I'm naming my Chromium and Firefox TypeScript type
       declaration packages with the name `@types` just to get things to work. The TypeScript compiler makes some
       assumptions about this package and things "just work" if the type declarations are in `node_modules/@types`. This
@@ -130,12 +126,6 @@ General clean ups, TODOs and things I wish to implement for this project:
 * [ ] Consider publishing to npm. Publishing the compiled JavaScript and the TypeScript declaration files. A useful step
       to do before this would be to publish the distribution locally and consume it from the 'Detect Code Libraries' example
       project.
-* [x] DONE Move Chrome and Firefox TypeScript type declaration files into a separate workspace. These type declarations are
-      orthogonal to the implementation of BrowserExtensionFramework. They fit best in a separate workspace.
-* [x] DONE Organize code into npm "workspaces". Workspaces were introduced with the [release of npm 7 in 2020](https://github.blog/2020-10-13-presenting-v7-0-0-of-the-npm-cli/).
-      I would consider workspaces a long-awaited feature because it's a tool that we have in most other programming languages
-      and toolchains: Gradle (Java and JVM languages) has multi-project support, Rust has crates, Go has something (modules?) etc.
-      * I used this command to init a workspace: `npm init --workspace packages/framework` and `npm init --workspace packages/example-detect-code-libraries`
 * [ ] Runtime check the "externally_accessible" configuration list (I assume that's possible but I wouldn't be surprised if
       it wasn't) and warn if the current web page is not in the list. (This was the problem I had when I developed the
       example extension and I was confused). 
@@ -156,7 +146,8 @@ General clean ups, TODOs and things I wish to implement for this project:
       Anyway, `BackendWiring` is only usefully exposed to the user as an interface, not an abstract class. Can I make it
       an interface?
 
-Finished items:
+
+### Finished items
 
 * [x] DONE Add an example web extension
 * [x] DONE re-organize the directory layout. There's no need for a "browser-extension-framework/" directory. Too
@@ -182,6 +173,18 @@ Finished items:
 * [x] DONE Remove Deno for npm and Webpack. It was a rewarding experience and a quick start. But I need to understand a build
   a prototypical library and user/developer experience. There are so many quirks of browser-based JS modules that I
   can't afford to stray from mainstream.
+* [x] DONE Remove Webpack and instead use Rollup and API Extractor. I figured out, through my [work here](https://github.com/dgroomes/javascript-playground/commit/3e7b1a0f68fb0e5984e2fec5b1ef22ca4c4d9b4e)
+  that Rollup is a better fit for libraries. UPDATE: well this even drives the point home more strongly.. I found
+  that Webpack continued to work well on the app side (DCL (detect-code-libraries)) because I couldn't get Rollup to work
+  in DCL. Webpack is not dead! I think Rollup had trouble because of NPM workspaces, but I couldn't prove it and didn't
+  need to bother with it.
+* [x] DONE Move Chrome and Firefox TypeScript type declaration files into a separate workspace. These type declarations are
+  orthogonal to the implementation of BrowserExtensionFramework. They fit best in a separate workspace.
+* [x] DONE Organize code into npm "workspaces". Workspaces were introduced with the [release of npm 7 in 2020](https://github.blog/2020-10-13-presenting-v7-0-0-of-the-npm-cli/).
+  I would consider workspaces a long-awaited feature because it's a tool that we have in most other programming languages
+  and toolchains: Gradle (Java and JVM languages) has multi-project support, Rust has crates, Go has something (modules?) etc.
+  * I used this command to init a workspace: `npm init --workspace packages/framework` and `npm init --workspace packages/example-detect-code-libraries`
+
 
 ## Reference
 
