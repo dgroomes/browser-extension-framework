@@ -8,7 +8,7 @@
 
     // The "lib" configuration helps us write browser-compatible JavaScript code. This means our TypeScript code will
     // be verified against browser types like "Document".
-    "lib": ["dom", "dom.iterable"],
+    "lib": ["dom", "dom.iterable", "ES6"],
 
     "moduleResolution": "Node",
 

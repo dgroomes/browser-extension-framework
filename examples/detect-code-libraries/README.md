@@ -31,8 +31,14 @@ BrowserExtensionFramework is able to abstract away the content script.
 
 Follow these instructions to install the tool as a Chrome browser extension and use it:
 
+1. Install dependencies:
+    * ```shell
+      npm install
+      ```
 1. Build the extension distributions:
-    * `./build.sh`
+    * ```shell
+      ./build.sh
+      ```
 1. Open Chrome's extension settings page
     * Open Chrome to the URL: `chrome://extensions`
     * Alternatively, follow the instructions in the [Firefox](#firefox) section below to install the extension in
