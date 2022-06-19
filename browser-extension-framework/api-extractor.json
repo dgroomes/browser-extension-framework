@@ -340,9 +340,19 @@
      */
     "extractorMessageReporting": {
       "default": {
-        "logLevel": "warning"
-        // "addToApiReportFile": false
-      }
+        "logLevel": "warning",
+        // "addToApiReportFile": false,
+      },
+
+      // Disable the "it is missing a release tag (@alpha, @beta, @public, @internal)" warning messages. I'm not
+      // interested in integrating API Extractor to BrowserExtensionFramework beyond the minimum required for bundling
+      // the TypeScript declaration files.
+      //
+      // See https://api-extractor.com/pages/messages/ae-missing-release-tag/
+      //
+      "ae-missing-release-tag": {
+        "logLevel": "none"
+      },
 
       // "ae-extra-release-tag": {
       //   "logLevel": "warning",
