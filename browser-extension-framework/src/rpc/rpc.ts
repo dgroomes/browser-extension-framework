@@ -44,9 +44,9 @@ abstract class RpcServer {
      * or the message is not even an RPC message at all. The "intake" function logs the message and determines if it
      * should be processed as a remote procedure call by the server.
      *
-     * @returns {boolean} true if the request should be handled by the server or false if not.
+     * @returns true if the request should be handled by the server or false if not.
      */
-    intake(message) {
+    intake(message) : boolean {
         console.debug(`[RpcServer|${this.#descriptor}] Received message:`)
         console.debug(JSON.stringify({message}, null, 2))
 
@@ -55,9 +55,9 @@ abstract class RpcServer {
 
     /**
      * Dispatches the RPC request.
-     * @returns {Promise} a promise that resolves with the return value of the procedure
+     * @returns a promise that resolves with the return value of the procedure
      */
-    dispatch({procedureName, procedureArgs}) {
+    dispatch({procedureName, procedureArgs}) : Promise<any> {
         console.debug(`[RpcServer|${this.#descriptor}] Dispatching RPC call for '${procedureName}'...`)
 
         if (this.#promiseProcedures.has(procedureName)) {
@@ -126,7 +126,7 @@ abstract class RpcClient {
      *
      * Note: This is a "protected" method and should only be called by sub-classes.
      *
-     * @returns {Object} a correctly formatted RPC request message
+     * @returns a correctly formatted RPC request message
      */
     createRequest<T>(procedureName, procedureArgs): RpcRequestMessage<T> {
         return {
@@ -145,7 +145,7 @@ abstract class RpcClient {
      *
      * @param procedureName - the "procedure name" of the remote procedure call.
      * @param procedureArgs - the "procedure arguments" of the remote procedure call.
-     * @returns {Promise} a promise containing the return value of the remote procedure call
+     * @returns a promise containing the return value of the remote procedure call
      */
     abstract execRemoteProcedure<T,R>(procedureName, procedureArgs: T): Promise<R>
 }
