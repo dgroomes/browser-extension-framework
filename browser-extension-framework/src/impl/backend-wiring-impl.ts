@@ -1,8 +1,8 @@
 import {RpcClient, RpcServer} from "../rpc/rpc";
 import {getRpcClient, getRpcServer} from "../rpc/rpc-backend";
 import {BackendWiring} from "../backend-wiring";
-import {BrowserDescriptor} from "../browser-extension-framework";
 import {getBrowserDescriptor, setBrowserDescriptor} from "./browserDescriptor";
+import {BrowserDescriptor} from "../browser-descriptor";
 
 export {BackendWiringImpl}
 

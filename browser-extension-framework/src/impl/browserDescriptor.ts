@@ -1,7 +1,7 @@
 // Describe the browser type (either Chromium or Firefox)
 // This is global state.
 
-import {BrowserDescriptor} from "../browser-extension-framework";
+import {BrowserDescriptor} from "../browser-descriptor";
 
 let _browserDescriptor: BrowserDescriptor | null = null
 

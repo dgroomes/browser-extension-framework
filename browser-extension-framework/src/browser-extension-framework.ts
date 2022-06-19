@@ -2,11 +2,7 @@ import {BackendWiringImpl} from "./impl/backend-wiring-impl";
 import {BackendWiring} from "./backend-wiring";
 import {PageWiringImpl} from "./impl/page-wiring-impl";
 import {PageWiring} from "./page-wiring";
-
-export enum BrowserDescriptor {
-    CHROMIUM,
-    FIREFOX
-}
+import {BrowserDescriptor} from "./browser-descriptor";
 
 /**
  * This is the entry point into BrowserExtensionFramework. You should use the static "initialize" functions to wire the
