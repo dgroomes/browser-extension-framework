@@ -17,7 +17,7 @@ abstract class RpcServer {
     readonly #descriptor
 
     /**
-     * @param descriptor The descriptor describes this particular RPC server. Specifically, the descriptor should be either
+     * @param descriptor - The descriptor describes this particular RPC server. Specifically, the descriptor should be either
      * of: "background", "content-script", or "web-page". It's possible that this range will be expanded in the future
      * but for now that's it.
      */
@@ -44,7 +44,6 @@ abstract class RpcServer {
      * or the message is not even an RPC message at all. The "intake" function logs the message and determines if it
      * should be processed as a remote procedure call by the server.
      *
-     * @param message
      * @returns {boolean} true if the request should be handled by the server or false if not.
      */
     intake(message) {
@@ -56,7 +55,6 @@ abstract class RpcServer {
 
     /**
      * Dispatches the RPC request.
-     * @param rpcRequest
      * @returns {Promise} a promise that resolves with the return value of the procedure
      */
     dispatch({procedureName, procedureArgs}) {
@@ -82,9 +80,9 @@ abstract class RpcServer {
      * procedure of the same name. If found, the procedure will be invoked with the "procedureArgs" contained in the
      * request and it will send the response to the client.
      *
-     * @param procedureName the name of the procedure. All RPC request will include a procedure name so that the correct
+     * @param procedureName - the name of the procedure. All RPC request will include a procedure name so that the correct
      * procedure can be found by its name
-     * @param procedure the procedure to execute on the server. It must take zero or one args. The first argument must
+     * @param procedure - the procedure to execute on the server. It must take zero or one args. The first argument must
      * be the "procedureArgs". The procedure must return a Promise. The Promise should resolve with the return value of
      * interest when the procedure is finished its work.
      */
@@ -112,7 +110,7 @@ abstract class RpcClient {
     readonly #procedureTargetReceiver
 
     /**
-     * @param procedureTargetReceiver the destination RPC server for RPC requests. This is needed to make sure the right RPC
+     * @param procedureTargetReceiver - the destination RPC server for RPC requests. This is needed to make sure the right RPC
      * server finds the request and all other RPC servers ignore it.
      */
     protected constructor(procedureTargetReceiver) {
@@ -145,8 +143,8 @@ abstract class RpcClient {
      * In implementations of this method, make sure to call the "createRequest" function to create the RPC request object
      * before sending the request to the RPC server.
      *
-     * @param procedureName the "procedure name" of the remote procedure call.
-     * @param procedureArgs the "procedure arguments" of the remote procedure call.
+     * @param procedureName - the "procedure name" of the remote procedure call.
+     * @param procedureArgs - the "procedure arguments" of the remote procedure call.
      * @returns {Promise} a promise containing the return value of the remote procedure call
      */
     abstract execRemoteProcedure<T,R>(procedureName, procedureArgs: T): Promise<R>

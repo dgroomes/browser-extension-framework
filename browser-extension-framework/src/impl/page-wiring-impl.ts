@@ -54,7 +54,7 @@ function detectEnvironment(): ContextInfo {
      * From the examples below, notice how the legal characters include lowercase letters, numbers and the hyphen
      * character.
      *
-     * @param url. For example:
+     * @param url - For example:
      *               - chrome-extension://akidegfimbjmokpejlcnjagogamdiinl/some-page.html
      *               - moz-extension://df0b610b-995b-9240-8c3b-fcaf155c9005/some-code.js
      */

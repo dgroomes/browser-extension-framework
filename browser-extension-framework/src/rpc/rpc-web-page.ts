@@ -19,8 +19,9 @@ declare global {
  *  The window will be initialized with instances of RpcClient and RpcServer on the global variables "rpcClient" and
  *  "rpcServer" respectively.
  *
- *  @param browserDescriptor either "chromium" or "firefox" are supported
- *  @param webExtensionId
+ *  @param browserDescriptor - either "chromium" or "firefox" are supported
+ *  @param webExtensionId - The ID of the web extension given by the browser when it's installed. It is a long string of
+ *  characters and numbers.
  */
 function initRpcWebPage(browserDescriptor, webExtensionId) : [RpcClient, RpcServer] {
     if (window.initRpcWebPage_status === undefined) {

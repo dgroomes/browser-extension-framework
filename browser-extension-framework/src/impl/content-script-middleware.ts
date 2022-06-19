@@ -90,7 +90,7 @@ async function pageScriptInjectionRequestsListener(message, _sender, _sendRespon
  * This function would be used to inject the "dcl-page-script.js" file as described in the "Detect Code Libraries"
  * example in the README.
  *
- * @param fileName the name of a JavaScript file which must include framework-instrumented code
+ * @param fileName - the name of a JavaScript file which must include framework-instrumented code
  *
  * @returns a promise that resolves after the script has loaded and when it has signalled it is "satisfied". The function
  *         also broadcasts a 'page-injection-complete' message so that the calling backend code knows the procedure is done.
