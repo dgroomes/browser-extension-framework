@@ -102,20 +102,6 @@ extension and web page contexts:
 
 General clean ups, TODOs and things I wish to implement for this project:
 
-* [x] DONE (I got this resolved while doing the 'eject DCL' task. The trick was installing as 'devDependencies') TypeScript in combination with other tooling (npm, webpack) is so hard. I'm naming my Chromium and Firefox TypeScript type
-      declaration packages with the name `@types` just to get things to work. The TypeScript compiler makes some
-      assumptions about this package and things "just work" if the type declarations are in `node_modules/@types`. This
-      is strange in my opinion because why should the owner of the `@types` package (DefinitelyTyped) have a monopoly on type
-      declarations in the official TypeScript toolchain? People should be able to bring their own types. And you should be
-      able to by using the `typeRoots` config in `tsconfig.json`, but I was having issues with it. (maybe it's an npm
-      workspaces bug?). Below is the snippet I was trying.
-  ```json
-  "typeRoots": [
-    "../node_modules/@types",
-    "../node_modules/@dgroomes/chromium-types",
-    "../node_modules/@dgroomes/firefox-types"
-  ]
-  ```
 * [ ] Consider publishing to npm. Publishing the compiled JavaScript and the TypeScript declaration files. A useful step
       to do before this would be to publish the distribution locally and consume it from the 'Detect Code Libraries' example
       project.
@@ -138,10 +124,6 @@ General clean ups, TODOs and things I wish to implement for this project:
       there are problems with cyclic dependencies (seemingly a ts-loader/webpack problem, I was not facing it with Deno).
       Anyway, `BackendWiring` is only usefully exposed to the user as an interface, not an abstract class. Can I make it
       an interface?
-* [x] DONE Eject `detect-code-libraries` into its own standalone NPM project. In other words, do not tread it is as workspace
-      that's contained in the overall project. When `detect-code-libraries` is a standalone project, it acts closer to a
-      real example project. One of the important tasks for a project that consumes BrowserExtensionFramework is to figure
-      out how to import it.
 
 
 ### Finished items
@@ -185,6 +167,24 @@ General clean ups, TODOs and things I wish to implement for this project:
   convention.
 * [x] DONE Resolve the warnings output from both Rollup and API Extractor. Resolving these errors will require making changes
   to the source code. I didn't want to make those changes when I introduced the new tools in order to minimize the diff.
+* [x] DONE (I got this resolved while doing the 'eject DCL' task. The trick was installing as 'devDependencies') TypeScript in combination with other tooling (npm, webpack) is so hard. I'm naming my Chromium and Firefox TypeScript type
+  declaration packages with the name `@types` just to get things to work. The TypeScript compiler makes some
+  assumptions about this package and things "just work" if the type declarations are in `node_modules/@types`. This
+  is strange in my opinion because why should the owner of the `@types` package (DefinitelyTyped) have a monopoly on type
+  declarations in the official TypeScript toolchain? People should be able to bring their own types. And you should be
+  able to by using the `typeRoots` config in `tsconfig.json`, but I was having issues with it. (maybe it's an npm
+  workspaces bug?). Below is the snippet I was trying.
+  ```json
+  "typeRoots": [
+    "../node_modules/@types",
+    "../node_modules/@dgroomes/chromium-types",
+    "../node_modules/@dgroomes/firefox-types"
+  ]
+  ```
+* [x] DONE Eject `detect-code-libraries` into its own standalone NPM project. In other words, do not tread it is as workspace
+  that's contained in the overall project. When `detect-code-libraries` is a standalone project, it acts closer to a
+  real example project. One of the important tasks for a project that consumes BrowserExtensionFramework is to figure
+  out how to import it.
 
 
 ## Reference
