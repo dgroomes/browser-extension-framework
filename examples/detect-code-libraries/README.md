@@ -35,28 +35,32 @@ Follow these instructions to install the tool as a Chrome browser extension and 
     * ```shell
       npm install
       ```
-1. Build the extension distributions:
+2. Install BrowserExtensionFramework
+    * ```shell
+      npm install ../../browser-extension-framework/dgroomes-browser-extension-framework-0.1.0.tgz
+      ```
+3. Build the extension distributions:
     * ```shell
       ./build.sh
       ```
-1. Open Chrome's extension settings page
+4. Open Chrome's extension settings page
     * Open Chrome to the URL: `chrome://extensions`
     * Alternatively, follow the instructions in the [Firefox](#firefox) section below to install the extension in
       Firefox.
-1. Enable developer mode
+5. Enable developer mode
     * Enable the *Developer mode* toggle control in the upper right corner of the page
-1. Install the extension
+6. Install the extension
     * Click the *Load unpacked* button
     * In the file finder window that opens, find the extension distribution directory `dist/chromium-manifest-v2`,
       single click it to highlight it, and click the *Select* button.
     * It's installed!
-1. Open the browser to <https://en.wikipedia.org/wiki/Main_Page>
-1. Detect code libraries
+7. Open the browser to <https://en.wikipedia.org/wiki/Main_Page>
+8. Detect code libraries
     * Open the extensions menu by pressing the puzzle icon in the top right of the window
     * Click the "detect-code-libraries" extension entry
     * A popup will show up with a "Detect" button. Click it. You should see an alert dialog show up which says that
       jQuery was detected!
-1. Try more sites:
+9. Try more sites:
     * Detect libraries at <https://vuejs.org/> and <https://lodash.com/>.
     * To be able to detect libraries on other sites, you must first add them to the `externally_connectable`
       configuration in the `manifest.json` file.

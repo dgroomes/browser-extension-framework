@@ -1,5 +1,5 @@
 {
-  "name": "@types/dgroomes-firefox-types",
+  "name": "@dgroomes/dgroomes-firefox-types",
   "version": "0.1.0",
   "types": "global.d.ts",
   "files": [

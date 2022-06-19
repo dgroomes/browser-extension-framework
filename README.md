@@ -31,9 +31,6 @@ Here are some key points:
 * It is useful for two-way communication between components. E.g. web-page-to-background, popup-to-background, etc.
 * It depends on the RPC framework
 * If you do not need to inject JavaScript code into the web page, then you probably don't need this framework.
-* This framework only supports injecting one JavaScript file into the web page. This is because of the implementation
-  detail around the hardcoded "page-script-satisfied" signal. It could be made dynamic with more complexity but I don't
-  need that.
 
 The API is complicated only because the architecture of a web extension can be complicated. Some extensions will use all
 JavaScript execution environments: background scripts, popup scripts, content scripts and web page scripts. It's
@@ -105,7 +102,7 @@ extension and web page contexts:
 
 General clean ups, TODOs and things I wish to implement for this project:
 
-* [ ] TypeScript in combination with other tooling (npm, webpack) is so hard. I'm naming my Chromium and Firefox TypeScript type
+* [x] DONE (I got this resolved while doing the 'eject DCL' task. The trick was installing as 'devDependencies') TypeScript in combination with other tooling (npm, webpack) is so hard. I'm naming my Chromium and Firefox TypeScript type
       declaration packages with the name `@types` just to get things to work. The TypeScript compiler makes some
       assumptions about this package and things "just work" if the type declarations are in `node_modules/@types`. This
       is strange in my opinion because why should the owner of the `@types` package (DefinitelyTyped) have a monopoly on type
@@ -141,6 +138,10 @@ General clean ups, TODOs and things I wish to implement for this project:
       there are problems with cyclic dependencies (seemingly a ts-loader/webpack problem, I was not facing it with Deno).
       Anyway, `BackendWiring` is only usefully exposed to the user as an interface, not an abstract class. Can I make it
       an interface?
+* [x] DONE Eject `detect-code-libraries` into its own standalone NPM project. In other words, do not tread it is as workspace
+      that's contained in the overall project. When `detect-code-libraries` is a standalone project, it acts closer to a
+      real example project. One of the important tasks for a project that consumes BrowserExtensionFramework is to figure
+      out how to import it.
 
 
 ### Finished items
@@ -195,3 +196,11 @@ General clean ups, TODOs and things I wish to implement for this project:
     * The `externally_connectable` is not supported in Firefox. An alternative must be used for message passing between
       the web page and the extension.
       See <https://github.com/mdn/webextensions-examples/tree/master/page-to-extension-messaging>.
+* [TypeScript docs: *Library Structures*](https://www.typescriptlang.org/docs/handbook/declaration-files/library-structures.html)
+    * This page helps you understand how to structure a TypeScript library that is meant to be consumed by other projects.
+* [TypeScript docs: *Publishing*](https://www.typescriptlang.org/docs/handbook/declaration-files/publishing.html)
+* [TypeScript docs: *Declaration Files: Introduction*](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html)
+* [TypeScript GitHub issue #4443: "Proposal: Bundling TS module type definitions"](https://github.com/microsoft/TypeScript/issues/4433)
+    * This issue describes a common feature request that would replace the convention that TypeScript library authors
+      have of handwriting `index.d.ts` files. I think the `index.d.ts` convention is similar to the ["barrel file"](https://github.com/basarat/typescript-book/blob/master/docs/tips/barrel.md).
+* [GitHub repo: *mozilla/webextension-polyfill*](https://github.com/mozilla/webextension-polyfill)
