@@ -1,4 +1,4 @@
-import {BrowserExtensionFramework} from "@dgroomes/browser-extension-framework/api/browser-extension-framework";
+import {BrowserExtensionFramework} from "@dgroomes/browser-extension-framework";
 
 console.debug("[dcl-page-script.js] Initializing...");
 const pageWiring = BrowserExtensionFramework.initializePageWiring();

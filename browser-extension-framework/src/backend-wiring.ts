@@ -1,4 +1,4 @@
-import {RpcClient, RpcServer} from "../rpc/rpc";
+import {RpcClient, RpcServer} from "./rpc/rpc";
 
 /**
  * The BackendWiring class is part of the BrowserExtensionFramework's public API. It must be used in code that runs

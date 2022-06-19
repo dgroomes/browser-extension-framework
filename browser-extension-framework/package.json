@@ -2,7 +2,15 @@
   "name": "@dgroomes/browser-extension-framework",
   "version": "0.1.0",
   "description": "BrowserExtensionFramework is a zero-dependency RPC-centric framework for browser extensions.",
-  "main": "index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
   "scripts": {
     "transpile": "tsc",
     "bundle-js": "rollup --config rollup.config.mjs",

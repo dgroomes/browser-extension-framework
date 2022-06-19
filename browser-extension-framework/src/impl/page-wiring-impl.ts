@@ -1,6 +1,6 @@
 import {initRpcWebPage} from "../rpc/rpc-web-page";
 import {RpcClient, RpcServer} from "../rpc/rpc";
-import {PageWiring} from "../api/page-wiring";
+import {PageWiring} from "../page-wiring";
 
 export {PageWiringImpl}
 

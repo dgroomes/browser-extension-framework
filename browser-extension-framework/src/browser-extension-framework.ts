@@ -1,6 +1,6 @@
-import {BackendWiringImpl} from "../impl/backend-wiring-impl";
+import {BackendWiringImpl} from "./impl/backend-wiring-impl";
 import {BackendWiring} from "./backend-wiring";
-import {PageWiringImpl} from "../impl/page-wiring-impl";
+import {PageWiringImpl} from "./impl/page-wiring-impl";
 import {PageWiring} from "./page-wiring";
 
 export enum BrowserDescriptor {

@@ -105,7 +105,7 @@ extension and web page contexts:
 
 General clean ups, TODOs and things I wish to implement for this project:
 
-* [ ] Use the `index.ts` (or `.js`, `.mjs`, whatever) convention instead of the `api/` way. This is a common and well-understood
+* [x] DONE Use the `index.ts` (or `.js`, `.mjs`, whatever) convention instead of the `api/` way. This is a common and well-understood
       convention.
 * [ ] Resolve the warnings output from both Rollup and API Extractor. Resolving these errors will require making changes
       to the source code. I didn't want to make those changes when I introduced the new tools in order to minimize the diff.
