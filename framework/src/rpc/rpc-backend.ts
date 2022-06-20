@@ -15,9 +15,9 @@ function getRpcServer() : RpcServer {
     if (_rpcServer instanceof RpcServer) return _rpcServer
 
     const browserDescriptor: BrowserDescriptor = getBrowserDescriptor();
-    if (browserDescriptor === BrowserDescriptor.CHROMIUM) {
+    if (browserDescriptor === "chromium") {
         _rpcServer = new ChromiumBackgroundRpcServer()
-    } else if (browserDescriptor === BrowserDescriptor.FIREFOX) {
+    } else if (browserDescriptor === "firefox") {
         _rpcServer = new FirefoxBackgroundRpcServer()
     } else {
         throw new Error(`Unexpected browser: '${browserDescriptor}'. Expected either 'chromium' or 'firefox'`)
@@ -46,9 +46,9 @@ async function getRpcClient() {
     })
 
     const browserDescriptor = getBrowserDescriptor();
-    if (browserDescriptor === BrowserDescriptor.CHROMIUM) {
+    if (browserDescriptor === "chromium") {
         _rpcClient = new ChromiumBackgroundToContentScriptRpcClient(activeTab.id)
-    } else if (browserDescriptor === BrowserDescriptor.FIREFOX) {
+    } else if (browserDescriptor === "firefox") {
         _rpcClient = new FirefoxBackgroundToContentScriptRpcClient(activeTab.id)
     } else {
         throw new Error(`Unexpected browser: '${browserDescriptor}'. Expected either 'chromium' or 'firefox'`)

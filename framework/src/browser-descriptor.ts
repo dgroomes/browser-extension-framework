@@ -1,4 +1,1 @@
-export enum BrowserDescriptor {
-    CHROMIUM,
-    FIREFOX
-}
+export type BrowserDescriptor = "chromium" | "firefox"

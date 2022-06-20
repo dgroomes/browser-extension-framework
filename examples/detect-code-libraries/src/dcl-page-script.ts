@@ -1,7 +1,7 @@
-import {BrowserExtensionFramework} from "@dgroomes/browser-extension-framework";
+import {initializePageWiring} from "@dgroomes/browser-extension-framework";
 
 console.debug("[dcl-page-script.js] Initializing...");
-const pageWiring = BrowserExtensionFramework.initializePageWiring();
+const pageWiring = initializePageWiring();
 
 pageWiring.rpcServer.registerPromiseProcedure("detect", detectCodeLibraries);
 

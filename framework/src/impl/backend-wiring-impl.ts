@@ -59,10 +59,9 @@ class BackendWiringImpl extends BackendWiring {
         })
 
         const browserDescriptor = getBrowserDescriptor();
-        if (browserDescriptor === BrowserDescriptor.CHROMIUM) {
+        if (browserDescriptor === "chromium") {
             chrome.tabs.sendMessage(activeTab.id, injectPageRequest)
-            // @ts-ignore the constant value 'browserDescriptor' is import-mapped differently for chromium vs firefox.
-        } else if (browserDescriptor === BrowserDescriptor.FIREFOX) {
+        } else if (browserDescriptor === "firefox") {
             await browser.tabs.sendMessage(activeTab.id, injectPageRequest)
         } else {
             throw new Error(`Unrecognized browser descriptor: ${browserDescriptor}`)
