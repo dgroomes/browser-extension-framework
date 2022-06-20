@@ -5,7 +5,7 @@
   "private": true,
   "license": "UNLICENSED",
   "workspaces": [
-    "browser-extension-framework",
+    "framework",
     "browser-types/chromium-types",
     "browser-types/firefox-types"
   ]

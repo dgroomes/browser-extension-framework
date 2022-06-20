@@ -11,8 +11,8 @@ function contextWindow(config) {
 }
 
 /**
- * Include the code from the other NPM workspaces in the bundle. For example, include the code in the 'browser-types/chromium-types'
- * NPM workspace in the bundle. BrowserExtensionFramework needs to be published as one package without any dependencies.
+ * Include the code from the other npm workspaces in the bundle. For example, include the code in the 'browser-types/chromium-types'
+ * npm workspace in the bundle. BrowserExtensionFramework needs to be published as one package without any dependencies.
  * This makes for a good development experience for consuming applications.
  *
  * Note: I don't think this does anything actually because 'browser-types/chromium-types' is types only, there is no

@@ -46,7 +46,7 @@ Follow these instructions to build BrowserExtensionFramework:
       npm pack
       ```
     * Notice the file `dgroomes-browser-extension-framework-0.1.0.tgz`. By packing a distribution file, we can consume
-      BrowserExtensionFramework from another local NPM project.
+      BrowserExtensionFramework from another local npm project.
 
 The final result of the build process is three artifacts:
 

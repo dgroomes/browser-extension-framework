@@ -9,7 +9,7 @@ set -eu
 
 # Bash trick to get the directory containing the script. See https://stackoverflow.com/a/246128
 project_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-bef_dist="$project_dir/../../browser-extension-framework/dist/"
+bef_dist="$project_dir/../../framework/dist/"
 
 preconditions() {
   if [[ ! -d "$bef_dist" ]]; then
@@ -45,7 +45,6 @@ assemble_distribution() {
 
 build_all() {
     echo "Building..."
-    local build_status=0
 
     build_source
 

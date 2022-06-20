@@ -37,7 +37,7 @@ Follow these instructions to install the tool as a Chrome browser extension and 
       ```
 2. Install BrowserExtensionFramework
     * ```shell
-      npm install ../../browser-extension-framework/dgroomes-browser-extension-framework-0.1.0.tgz
+      npm install ../../framework/dgroomes-browser-extension-framework-0.1.0.tgz
       ```
 3. Build the extension distributions:
     * ```shell

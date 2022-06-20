@@ -2,24 +2,9 @@
 
 🛠 BrowserExtensionFramework is a zero-dependency RPC-centric framework for browser extensions (sometimes called web extensions).
 
-
-## Design
+## BrowserExtensionFramework
 
 **NOTE**: This project was developed on macOS. It is for my own personal use.
-
-This project is made up of multiple npm workspaces:
-
-* `browser-extension-framework/`
-   * This is the core of BrowserExtensionFramework.
-* `browser-types/chromium-types`
-   * TypeScript type declaration files for Chromium JavaScript APIs.
-* `browser-types/firefox-types`
-   * TypeScript type declaration files for Firefox JavaScript APIs.
-* `examples/detect-code-libraries`
-   * 'Detect Code Libraries' is an example browser extension that is built with BrowserExtensionFramework.
-
-
-## Browser Extension Framework
 
 BrowserExtensionFramework is an RPC-centric web extension framework. I originally developed it while working on another
 project of mine: <https://github.com/dgroomes/stackoverflow-look-back>.
@@ -98,6 +83,22 @@ extension and web page contexts:
     * The web page must initialize the RPC objects on the web page by calling `initRpcWebPage(...)`
 
 
+## Design
+
+This project is made up of multiple npm workspaces:
+
+* `framework/`
+    * This workspace represents the BrowserExtensionFramework. It pulls in the code from other workspaces and glues it
+      together with the main framework code.
+* `browser-types/chromium-types`
+    * TypeScript type declaration files for Chromium JavaScript APIs.
+* `browser-types/firefox-types`
+    * TypeScript type declaration files for Firefox JavaScript APIs.
+* `examples/detect-code-libraries`
+    * 'Detect Code Libraries' is an example browser extension that is built with BrowserExtensionFramework.
+
+
+
 ## Wish List
 
 General clean ups, TODOs and things I wish to implement for this project:
@@ -155,7 +156,7 @@ General clean ups, TODOs and things I wish to implement for this project:
 * [x] DONE Remove Webpack and instead use Rollup and API Extractor. I figured out, through my [work here](https://github.com/dgroomes/javascript-playground/commit/3e7b1a0f68fb0e5984e2fec5b1ef22ca4c4d9b4e)
   that Rollup is a better fit for libraries. UPDATE: well this even drives the point home more strongly.. I found
   that Webpack continued to work well on the app side (DCL (detect-code-libraries)) because I couldn't get Rollup to work
-  in DCL. Webpack is not dead! I think Rollup had trouble because of NPM workspaces, but I couldn't prove it and didn't
+  in DCL. Webpack is not dead! I think Rollup had trouble because of npm workspaces, but I couldn't prove it and didn't
   need to bother with it.
 * [x] DONE Move Chrome and Firefox TypeScript type declaration files into a separate workspace. These type declarations are
   orthogonal to the implementation of BrowserExtensionFramework. They fit best in a separate workspace.
@@ -181,7 +182,7 @@ General clean ups, TODOs and things I wish to implement for this project:
     "../node_modules/@dgroomes/firefox-types"
   ]
   ```
-* [x] DONE Eject `detect-code-libraries` into its own standalone NPM project. In other words, do not tread it is as workspace
+* [x] DONE Eject `detect-code-libraries` into its own standalone npm project. In other words, do not tread it is as workspace
   that's contained in the overall project. When `detect-code-libraries` is a standalone project, it acts closer to a
   real example project. One of the important tasks for a project that consumes BrowserExtensionFramework is to figure
   out how to import it.

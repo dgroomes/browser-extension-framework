@@ -13,6 +13,6 @@
   },
   "license": "UNLICENSED",
   "dependencies": {
-    "@dgroomes/browser-extension-framework": "file:../../browser-extension-framework/dgroomes-browser-extension-framework-0.1.0.tgz"
+    "@dgroomes/browser-extension-framework": "file:../../framework/dgroomes-browser-extension-framework-0.1.0.tgz"
   }
 }
