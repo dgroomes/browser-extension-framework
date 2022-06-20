@@ -1,7 +1,6 @@
 // This code is designed to run in background scripts.
 
 import {RpcClient, RpcServer} from "./rpc"
-import {getBrowserDescriptor} from "../impl/browserDescriptor";
 import {BrowserDescriptor} from "../browser-descriptor";
 
 export {getRpcServer, getRpcClient}
@@ -11,10 +10,9 @@ let _rpcServer: RpcServer
 /**
  * Instantiate a background RPC server.
  */
-function getRpcServer() : RpcServer {
+function getRpcServer(browserDescriptor: BrowserDescriptor) : RpcServer {
     if (_rpcServer instanceof RpcServer) return _rpcServer
 
-    const browserDescriptor: BrowserDescriptor = getBrowserDescriptor();
     if (browserDescriptor === "chromium") {
         _rpcServer = new ChromiumBackgroundRpcServer()
     } else if (browserDescriptor === "firefox") {
@@ -35,7 +33,7 @@ let _rpcClient : RpcClient
  *
  * @returns {RpcClient}
  */
-async function getRpcClient() {
+async function getRpcClient(browserDescriptor: BrowserDescriptor) {
     if (_rpcClient instanceof RpcClient) return _rpcClient
 
     const activeTab: Tab = await new Promise(resolve => {
@@ -45,7 +43,6 @@ async function getRpcClient() {
         })
     })
 
-    const browserDescriptor = getBrowserDescriptor();
     if (browserDescriptor === "chromium") {
         _rpcClient = new ChromiumBackgroundToContentScriptRpcClient(activeTab.id)
     } else if (browserDescriptor === "firefox") {

@@ -1,25 +1,26 @@
 import {RpcClient, RpcServer} from "../rpc/rpc";
 import {getRpcClient, getRpcServer} from "../rpc/rpc-backend";
 import {BackendWiring} from "../backend-wiring";
-import {getBrowserDescriptor, setBrowserDescriptor} from "./browserDescriptor";
 import {BrowserDescriptor} from "../browser-descriptor";
 
 export {BackendWiringImpl}
 
 class BackendWiringImpl extends BackendWiring {
 
-    constructor(rpcClient: RpcClient, rpcServer: RpcServer) {
+    private readonly browserDescriptor : BrowserDescriptor
+
+    constructor(rpcClient: RpcClient, rpcServer: RpcServer, browserDescriptor: BrowserDescriptor) {
         super(rpcClient, rpcServer)
+        this.browserDescriptor = browserDescriptor
     }
 
     static async initialize(browserDescriptor: BrowserDescriptor): Promise<BackendWiringImpl> {
-        setBrowserDescriptor(browserDescriptor)
-        const rpcClient = await getRpcClient();
-        const rpcServer = getRpcServer();
+        const rpcClient = await getRpcClient(browserDescriptor);
+        const rpcServer = getRpcServer(browserDescriptor);
         await initializeMiddleware()
         rpcServer.listen()
         console.log("[backend-wiring] The backend RPC server is listening for requests.")
-        return new BackendWiringImpl(rpcClient, rpcServer);
+        return new BackendWiringImpl(rpcClient, rpcServer, browserDescriptor);
     }
 
     async injectInstrumentedPageScript(fileName: string): Promise<void> {
@@ -58,13 +59,12 @@ class BackendWiringImpl extends BackendWiring {
             })
         })
 
-        const browserDescriptor = getBrowserDescriptor();
-        if (browserDescriptor === "chromium") {
+        if (this.browserDescriptor === "chromium") {
             chrome.tabs.sendMessage(activeTab.id, injectPageRequest)
-        } else if (browserDescriptor === "firefox") {
+        } else if (this.browserDescriptor === "firefox") {
             await browser.tabs.sendMessage(activeTab.id, injectPageRequest)
         } else {
-            throw new Error(`Unrecognized browser descriptor: ${browserDescriptor}`)
+            throw new Error(`Unrecognized browser descriptor: ${this.browserDescriptor}`)
         }
 
         await pageInjectionComplete

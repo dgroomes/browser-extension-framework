@@ -4,9 +4,8 @@
 export {RpcServer, RpcClient}
 
 /**
- * This is a partially implemented class (in Java it would be called an "abstract" class) that defines the base
- * functionality of the server component of a Remote Procedure Call (RPC) system. Instances of this class service RPC
- * requests initiated by RPC clients.
+ * This is a partially implemented class that defines the base functionality of the server component of a Remote Procedure Call
+ * (RPC) system. Instances of this class service RPC requests initiated by RPC clients.
  *
  * The unimplemented method "listen()" must be implemented by the concrete sub-classes.
  */
