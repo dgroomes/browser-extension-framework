@@ -34,7 +34,7 @@
     //
     // See https://en.wikipedia.org/wiki/Dependency_hell
     // See https://stackoverflow.com/questions/59906323/typescript-skiplibcheck-still-checking-node-modules-libs
-    "skipLibCheck": true
+    "skipLibCheck": true,
   },
-  "include": ["src"]
+  "include": ["src", "../node_modules/@dgroomes-types"]
 }

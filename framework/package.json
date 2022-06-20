@@ -21,8 +21,8 @@
     "@rollup/plugin-node-resolve": "^13.3.0",
     "rollup": "2.75.6",
     "typescript": "4.6.4",
-    "@dgroomes/dgroomes-chromium-types": "^0.1.0",
-    "@dgroomes/dgroomes-firefox-types": "^0.1.0"
+    "@dgroomes-types/chromium-types": "0.1.0",
+    "@dgroomes-types/firefox-types": "0.1.0"
   },
   "license": "UNLICENSED"
 }

@@ -125,6 +125,9 @@ General clean ups, TODOs and things I wish to implement for this project:
       there are problems with cyclic dependencies (seemingly a ts-loader/webpack problem, I was not facing it with Deno).
       Anyway, `BackendWiring` is only usefully exposed to the user as an interface, not an abstract class. Can I make it
       an interface?
+* [x] DONE I broke the project again. It turns our I still need the `@types` trick, or I need something else. The `chrome` global
+      can't be found. I think I'm done with npm workspaces. What is more useful to me is TypeScript project references.
+      Or frankly, just plain old "break up the .ts files in the same project".
 
 
 ### Finished items
@@ -168,7 +171,7 @@ General clean ups, TODOs and things I wish to implement for this project:
   convention.
 * [x] DONE Resolve the warnings output from both Rollup and API Extractor. Resolving these errors will require making changes
   to the source code. I didn't want to make those changes when I introduced the new tools in order to minimize the diff.
-* [x] DONE (I got this resolved while doing the 'eject DCL' task. The trick was installing as 'devDependencies') TypeScript in combination with other tooling (npm, webpack) is so hard. I'm naming my Chromium and Firefox TypeScript type
+* [x] DONE (UPDATE this did not work like I thought it did. I got false positives because `node_modules/` had leftover goodies) (I got this resolved while doing the 'eject DCL' task. The trick was installing as 'devDependencies') TypeScript in combination with other tooling (npm, webpack) is so hard. I'm naming my Chromium and Firefox TypeScript type
   declaration packages with the name `@types` just to get things to work. The TypeScript compiler makes some
   assumptions about this package and things "just work" if the type declarations are in `node_modules/@types`. This
   is strange in my opinion because why should the owner of the `@types` package (DefinitelyTyped) have a monopoly on type

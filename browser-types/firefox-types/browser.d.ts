@@ -2,9 +2,11 @@
 //
 // See https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API
 
-declare namespace browser {
-    let tabs: Tabs
-    let runtime: Runtime
+declare var browser: Browser
+
+declare interface Browser {
+    tabs: Tabs
+    runtime: Runtime
 }
 
 /** https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/runtime */

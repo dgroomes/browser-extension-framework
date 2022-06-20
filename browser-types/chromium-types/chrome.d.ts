@@ -1,10 +1,12 @@
 // Type declarations for Chrome and the Chrome web extension JavaScript API.
 
-declare namespace chrome {
-    let declarativeContent: DeclarativeContent
-    let runtime: ChromeRuntime
-    let storage: Storage
-    let tabs: Tabs
+declare var chrome: Chrome
+
+declare interface Chrome {
+    declarativeContent: DeclarativeContent
+    runtime: ChromeRuntime
+    storage: Storage
+    tabs: Tabs
 }
 
 /** The "chrome.runtime" API https://developer.chrome.com/docs/extensions/reference/runtime/ */

@@ -1,9 +1,10 @@
 {
-  "name": "@dgroomes/dgroomes-firefox-types",
+  "name": "@dgroomes-types/firefox-types",
   "version": "0.1.0",
-  "types": "global.d.ts",
+  "private": true,
+  "types": "browser.d.ts",
   "files": [
-    "global.d.ts"
+    "browser.d.ts"
   ],
   "description": "TypeScript type declaration files for Firefox JavaScript APIs.",
   "license": "UNLICENSED"
